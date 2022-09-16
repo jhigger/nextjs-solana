@@ -5,6 +5,7 @@ import Form from '../components/Form';
 import Header from '../components/Header';
 import SubmissionsTable from '../components/SubmissionsTable';
 import {useState} from 'react';
+import Nav from '../components/Nav';
 
 export default function Home() {
 	const {publicKey} = useWallet();
@@ -19,7 +20,8 @@ export default function Home() {
 			<Head>
 				<title>Nextjs + Solana</title>
 			</Head>
-			<Flex as="main" minH="100vh" align="center" justify="center">
+			<Nav />
+			<Flex as="main" minH="100vh" justify="center">
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
 						<Header />
