@@ -1,12 +1,12 @@
 import {
+	Button,
 	Flex,
+	FormControl,
+	FormErrorMessage,
+	FormLabel,
+	Input,
 	Stack,
 	useColorModeValue,
-	Input,
-	FormControl,
-	FormLabel,
-	FormErrorMessage,
-	Button,
 	useToast
 } from '@chakra-ui/react';
 import {useForm} from 'react-hook-form';
@@ -36,8 +36,8 @@ const Form = ({publicKey, handleRefresh}) => {
 			headers: {'Content-type': 'application/json; charset=UTF-8'}
 		})
 			.then(() => {
-				handleRefresh();
 				showToast();
+				handleRefresh();
 			})
 			.catch((err) => console.log(err));
 
