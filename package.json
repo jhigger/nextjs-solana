@@ -1,0 +1,29 @@
+{
+  "name": "next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ./database-setup.js && next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.3.2",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@solana-mobile/wallet-adapter-mobile": "^0.9.1",
+    "@solana/wallet-adapter-base": "^0.9.16",
+    "@solana/wallet-adapter-react": "^0.15.18",
+    "@solana/wallet-adapter-react-ui": "^0.9.16",
+    "@solana/wallet-adapter-wallets": "^0.18.9",
+    "@solana/web3.js": "^1.61.1",
+    "bs58": "^5.0.0",
+    "framer-motion": "^6.5.1",
+    "next": "^12.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.35.0",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.1"
+  }
+}
