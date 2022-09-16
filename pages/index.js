@@ -1,11 +1,11 @@
-import {Container, Flex, Stack, SimpleGrid} from '@chakra-ui/react';
+import {Container, Flex, Stack} from '@chakra-ui/react';
 import {useWallet} from '@solana/wallet-adapter-react';
 import Head from 'next/head';
+import {useEffect, useState} from 'react';
 import Form from '../components/Form';
 import Header from '../components/Header';
-import SubmissionsTable from '../components/SubmissionsTable';
-import {useState, useEffect} from 'react';
 import Nav from '../components/Nav';
+import SubmissionsTable from '../components/SubmissionsTable';
 
 export default function Home() {
 	const {publicKey} = useWallet();
@@ -28,12 +28,12 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		handleFetch();
-	}, [address, refresh]);
-
-	useEffect(() => {
 		setAddress(publicKey?.toBase58());
 	}, [publicKey]);
+
+	useEffect(() => {
+		handleFetch();
+	}, [address, refresh]);
 
 	return (
 		<>
