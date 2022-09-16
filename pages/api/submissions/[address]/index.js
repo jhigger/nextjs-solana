@@ -17,8 +17,8 @@ export default async (req, res) => {
 			FROM Submission sub JOIN Status stat
 			ON sub.statusId = stat.id
 			WHERE address = ?`;
-		const result = await db.all(statement, req.query.address);
-		res.status(200).json(result);
+		const result = await db.get(statement, req.query.address);
+		res.status(200).json({...result});
 	} else {
 		// Handle any other HTTP method
 		res.status(200).json({name: 'Hello, world!'});

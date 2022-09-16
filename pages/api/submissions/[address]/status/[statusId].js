@@ -9,16 +9,15 @@ async function openDb() {
 }
 
 export default async (req, res) => {
-	if (req.method === 'GET') {
-		// Process a GET request
+	const {address, statusId} = req.query;
+	if (req.method === 'PUT') {
+		// Process a PUT request
 		const db = await openDb();
-		const statement = `
-			SELECT sub.*, stat.name AS status_name
-			FROM Submission sub JOIN Status stat
-			ON sub.statusId = stat.id
-			WHERE address = ?`;
-		const result = await db.all(statement, req.query.address);
-		res.status(200).json(result);
+		const statement =
+			'UPDATE Submission SET statusId = ? WHERE address = ?';
+		const values = [statusId, address];
+		await db.run(statement, values);
+		res.status(200).send({message: 'Confirmed'});
 	} else {
 		// Handle any other HTTP method
 		res.status(200).json({name: 'Hello, world!'});

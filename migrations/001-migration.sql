@@ -5,8 +5,7 @@ CREATE TABLE Status (
 );
 
 CREATE TABLE Submission (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  address TEXT,
+  address TEXT PRIMARY KEY,
   email TEXT,
   discord TEXT,
   project TEXT,

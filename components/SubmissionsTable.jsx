@@ -10,22 +10,8 @@ import {
 	Heading,
 	Stack
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
 
-const SubmissionsTable = ({publicKey, refresh}) => {
-	const [submissions, setSubmissions] = useState([]);
-
-	useEffect(() => {
-		async function fetchData() {
-			const res = await fetch(
-				`http://localhost:3000/api/submissions/address/${publicKey?.toBase58()}`
-			);
-			const data = await res.json();
-			setSubmissions(data);
-		}
-		fetchData();
-	}, [refresh]);
-
+const SubmissionsTable = ({submission}) => {
 	return (
 		<Stack
 			p={8}
@@ -36,7 +22,7 @@ const SubmissionsTable = ({publicKey, refresh}) => {
 			spacing={4}
 		>
 			<Heading as="h2" size="md" align="center">
-				Your Submissions
+				Your Submission
 			</Heading>
 			<TableContainer w="full" h="full" overflowY>
 				<Table variant="striped" colorScheme="gray">
@@ -47,14 +33,10 @@ const SubmissionsTable = ({publicKey, refresh}) => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{submissions.map((row) => {
-							return (
-								<Tr key={row.id}>
-									<Td>{row.project}</Td>
-									<Td>{row.status_name}</Td>
-								</Tr>
-							);
-						})}
+						<Tr>
+							<Td>{submission?.project}</Td>
+							<Td>{submission?.status_name}</Td>
+						</Tr>
 					</Tbody>
 				</Table>
 			</TableContainer>
