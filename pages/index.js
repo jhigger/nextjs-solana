@@ -37,7 +37,7 @@ export default function Home() {
 	return (
 		<>
 			<Head>
-				<title>Nextjs + Solana</title>
+				<title>Client Portal</title>
 			</Head>
 			<Flex as="main" minH="100vh" justify="center">
 				<Container maxW="container.lg" py={4}>
