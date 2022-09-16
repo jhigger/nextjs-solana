@@ -8,10 +8,13 @@ import {
 	Td,
 	TableContainer,
 	Heading,
-	Stack
+	Stack,
+	IconButton,
+	Flex
 } from '@chakra-ui/react';
+import {RepeatIcon} from '@chakra-ui/icons';
 
-const SubmissionsTable = ({submission}) => {
+const SubmissionsTable = ({submission, handleRefresh}) => {
 	return (
 		<Stack
 			p={8}
@@ -24,6 +27,13 @@ const SubmissionsTable = ({submission}) => {
 			<Heading as="h2" size="md" align="center">
 				Your Submission
 			</Heading>
+			<Flex justify="end">
+				<IconButton
+					aria-label="Refresh"
+					icon={<RepeatIcon />}
+					onClick={handleRefresh}
+				/>
+			</Flex>
 			<TableContainer w="full" h="full" overflowY>
 				<Table variant="striped" colorScheme="gray">
 					<Thead>

@@ -2,9 +2,9 @@ import {Container, Flex, Stack} from '@chakra-ui/react';
 import {useWallet} from '@solana/wallet-adapter-react';
 import Head from 'next/head';
 import {useEffect, useState} from 'react';
-import Form from '../components/Form';
-import Header from '../components/Header';
-import SubmissionsTable from '../components/SubmissionsTable';
+import Form from '../components/client/Form';
+import Header from '../components/client/Header';
+import SubmissionsTable from '../components/client/SubmissionsTable';
 
 export default function Home() {
 	const {publicKey} = useWallet();
@@ -42,11 +42,14 @@ export default function Home() {
 			<Flex as="main" minH="100vh" justify="center">
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
-						<Header handleRefresh={handleRefresh} />
+						<Header />
 						{publicKey !== null && (
 							<>
 								{submission ? (
-									<SubmissionsTable submission={submission} />
+									<SubmissionsTable
+										submission={submission}
+										handleRefresh={handleRefresh}
+									/>
 								) : (
 									<Form
 										publicKey={publicKey}

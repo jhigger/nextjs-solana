@@ -15,7 +15,8 @@ export default async (req, res) => {
 		const statement = `
 			SELECT sub.*, stat.name AS status_name
 			FROM Submission sub JOIN Status stat
-			ON sub.statusId = stat.id`;
+			ON sub.statusId = stat.id
+            WHERE statusId = 1`;
 		const result = await db.all(statement);
 		res.status(200).json(result);
 	} else {
