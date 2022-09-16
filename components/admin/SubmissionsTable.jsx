@@ -31,7 +31,7 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 		const showToast = () => {
 			return toast({
 				title: status === 2 ? 'Approved' : 'Rejected',
-				status: 'success',
+				status: 'info',
 				isClosable: true
 			});
 		};
