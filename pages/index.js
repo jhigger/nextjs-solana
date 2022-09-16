@@ -6,10 +6,10 @@ import Header from '../components/Header';
 import SubmissionsTable from '../components/SubmissionsTable';
 import {useState, useEffect} from 'react';
 import Nav from '../components/Nav';
-import {WalletNotConnectedError} from '@solana/wallet-adapter-base';
 
 export default function Home() {
 	const {publicKey} = useWallet();
+	const [address, setAddress] = useState('');
 	const [submission, setSubmission] = useState(null);
 	const [refresh, toggleRefresh] = useState(false);
 
@@ -19,19 +19,21 @@ export default function Home() {
 
 	const handleFetch = async () => {
 		if (!publicKey) return;
-
-		const address = publicKey?.toBase58();
 		const res = await fetch(
 			`http://localhost:3000/api/submissions/${address}`
 		);
 		const data = await res.json();
-		if (Object.keys(data).length === 0) return;
+		if (Object.keys(data).length === 0) return setSubmission(null);
 		setSubmission(data);
 	};
 
 	useEffect(() => {
 		handleFetch();
-	}, [publicKey, refresh]);
+	}, [address, refresh]);
+
+	useEffect(() => {
+		setAddress(publicKey?.toBase58());
+	}, [publicKey]);
 
 	return (
 		<>
