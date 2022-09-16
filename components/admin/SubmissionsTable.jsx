@@ -20,12 +20,10 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 	const toast = useToast();
 
 	const handleApprove = (address) => {
-		console.log('approved');
 		handleUpdate(address, 2);
 	};
 
 	const handleReject = (address) => {
-		console.log('rejected');
 		handleUpdate(address, 3);
 	};
 
