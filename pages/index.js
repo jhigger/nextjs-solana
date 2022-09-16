@@ -4,7 +4,6 @@ import Head from 'next/head';
 import {useEffect, useState} from 'react';
 import Form from '../components/Form';
 import Header from '../components/Header';
-import Nav from '../components/Nav';
 import SubmissionsTable from '../components/SubmissionsTable';
 
 export default function Home() {
@@ -40,7 +39,6 @@ export default function Home() {
 			<Head>
 				<title>Nextjs + Solana</title>
 			</Head>
-			<Nav />
 			<Flex as="main" minH="100vh" justify="center">
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
