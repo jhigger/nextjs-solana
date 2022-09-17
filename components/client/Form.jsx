@@ -114,6 +114,7 @@ const Form = ({publicKey, handleRefresh}) => {
 						mt={4}
 						bg="purple.600"
 						color="purple.100"
+						_hover={{bg: 'purple.500'}}
 						isLoading={isSubmitting}
 						type="submit"
 					>
