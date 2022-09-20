@@ -45,7 +45,7 @@ const SubmissionsTable = ({submission, handleRefresh}) => {
 					<Tbody>
 						<Tr>
 							<Td>{submission?.project}</Td>
-							<Td>{submission?.status_name}</Td>
+							<Td>{submission?.status?.name}</Td>
 						</Tr>
 					</Tbody>
 				</Table>

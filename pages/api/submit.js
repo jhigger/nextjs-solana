@@ -1,27 +1,12 @@
-const sqlite3 = require('sqlite3');
-const sqlite = require('sqlite');
-
-async function openDb() {
-	return sqlite.open({
-		filename: 'data/mydb.sqlite',
-		driver: sqlite3.Database
-	});
-}
+import prisma from '../../lib/prisma';
 
 export default async (req, res) => {
 	if (req.method === 'POST') {
 		// Process a POST request
-		const db = await openDb();
-		const statement =
-			'INSERT INTO Submission (address, email, discord, project, statusId) VALUES (?,?,?,?,?)';
-		const values = [
-			req.body.address,
-			req.body.email,
-			req.body.discord,
-			req.body.project,
-			1
-		];
-		await db.run(statement, values);
+		const {address, email, discord, project} = req.body;
+		await prisma.submission.create({
+			data: {address, email, discord, project}
+		});
 		res.status(200).send({message: 'Submitted'});
 	} else {
 		// Handle any other HTTP method

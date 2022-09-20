@@ -27,21 +27,20 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 		handleUpdate(address, 3);
 	};
 
-	const handleUpdate = (address, status) => {
+	const handleUpdate = (address, statusId) => {
 		const showToast = () => {
 			return toast({
-				title: status === 2 ? 'Approved' : 'Rejected',
+				title: statusId === 2 ? 'Approved' : 'Rejected',
 				status: 'info',
 				isClosable: true
 			});
 		};
 
-		fetch(
-			`http://localhost:3000/api/submissions/${address}/status/${status}`,
-			{
-				method: 'PUT'
-			}
-		)
+		fetch(`http://localhost:3000/api/submissions/${address}`, {
+			method: 'PUT',
+			body: JSON.stringify({statusId}),
+			headers: {'Content-type': 'application/json; charset=UTF-8'}
+		})
 			.then(() => {
 				showToast();
 				handleRefresh();
@@ -82,7 +81,7 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 							return (
 								<Tr key={row.address}>
 									<Td>{row?.project}</Td>
-									<Td>{row?.status_name}</Td>
+									<Td>{row?.status?.name}</Td>
 									<Td>
 										<Stack direction="row" justify="center">
 											<Button
