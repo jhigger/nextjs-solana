@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react';
 import {useForm, useController} from 'react-hook-form';
 
-function RadioCard({register, children, ...props}) {
-	const {getInputProps, getCheckboxProps} = useRadio({...props});
+function RadioCard(props) {
+	const {getInputProps, getCheckboxProps} = useRadio(props);
 
 	const input = getInputProps();
 	const checkbox = getCheckboxProps();
@@ -42,7 +42,7 @@ function RadioCard({register, children, ...props}) {
 				px={5}
 				py={3}
 			>
-				{children}
+				{props.children}
 			</Box>
 		</Box>
 	);
