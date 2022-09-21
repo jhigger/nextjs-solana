@@ -4,7 +4,7 @@ import Head from 'next/head';
 import {useEffect, useState} from 'react';
 import Form from '../components/client/Form';
 import Header from '../components/client/Header';
-import SubmissionsTable from '../components/client/SubmissionsTable';
+import SubmissionTable from '../components/client/SubmissionTable';
 
 export default function Home() {
 	const {publicKey} = useWallet();
@@ -22,7 +22,7 @@ export default function Home() {
 			`http://localhost:3000/api/submissions/${address}`
 		);
 		const data = await res.json();
-		if (Object.keys(data).length === 0) return setSubmission(null);
+		if (!data) return setSubmission(null);
 		setSubmission(data);
 	};
 
@@ -46,7 +46,7 @@ export default function Home() {
 						{publicKey !== null && (
 							<>
 								{submission ? (
-									<SubmissionsTable
+									<SubmissionTable
 										submission={submission}
 										handleRefresh={handleRefresh}
 									/>

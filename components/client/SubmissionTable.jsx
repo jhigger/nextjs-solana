@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import {RepeatIcon} from '@chakra-ui/icons';
 
-const SubmissionsTable = ({submission, handleRefresh}) => {
+const SubmissionTable = ({submission, handleRefresh}) => {
 	return (
 		<Stack
 			p={8}
@@ -38,13 +38,13 @@ const SubmissionsTable = ({submission, handleRefresh}) => {
 				<Table variant="striped" colorScheme="gray">
 					<Thead>
 						<Tr>
-							<Th>Project Name</Th>
+							<Th>Community Name</Th>
 							<Th>Status</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
 						<Tr>
-							<Td>{submission?.project}</Td>
+							<Td>{submission?.communityName}</Td>
 							<Td>{submission?.status?.name}</Td>
 						</Tr>
 					</Tbody>
@@ -54,4 +54,4 @@ const SubmissionsTable = ({submission, handleRefresh}) => {
 	);
 };
 
-export default SubmissionsTable;
+export default SubmissionTable;

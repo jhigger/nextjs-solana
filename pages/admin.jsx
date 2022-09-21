@@ -1,11 +1,14 @@
-import {Container, Flex, Stack} from '@chakra-ui/react';
+import {Container, Flex, SimpleGrid, Stack} from '@chakra-ui/react';
 import Head from 'next/head';
 import {useEffect, useState} from 'react';
+import ApprovedTable from '../components/admin/ApprovedTable';
 import LoginPanel from '../components/admin/LoginPanel';
-import SubmissionsTable from '../components/admin/SubmissionsTable';
+import PendingTable from '../components/admin/PendingTable';
 
 const admin = () => {
-	const [submissions, setSubmissions] = useState([]);
+	const [pending, setPending] = useState([]);
+	const [approved, setApproved] = useState([]);
+
 	const [refresh, toggleRefresh] = useState(false);
 	const [loggedIn, setLoggedIn] = useState(false);
 
@@ -17,16 +20,25 @@ const admin = () => {
 		toggleRefresh((prev) => !prev);
 	};
 
-	const handleFetch = async () => {
+	const handleFetchPending = async () => {
 		const res = await fetch(
-			`http://localhost:3000/api/submissions/pending`
+			`http://localhost:3000/api/submissions/status/1`
 		);
 		const data = await res.json();
-		setSubmissions(data);
+		setPending(data);
+	};
+
+	const handleFetchApproved = async () => {
+		const res = await fetch(
+			`http://localhost:3000/api/submissions/status/2`
+		);
+		const data = await res.json();
+		setApproved(data);
 	};
 
 	useEffect(() => {
-		handleFetch();
+		handleFetchPending();
+		handleFetchApproved();
 	}, [refresh]);
 
 	return (
@@ -36,13 +48,17 @@ const admin = () => {
 			</Head>
 			<Flex as="main" minH="100vh" justify="center">
 				{loggedIn ? (
-					<Container maxW="container.lg" py={4}>
-						<Stack spacing={4}>
-							<SubmissionsTable
-								submissions={submissions}
+					<Container maxW="container.xl" py={4}>
+						<SimpleGrid columns={[1, 2]} spacing={4}>
+							<PendingTable
+								pending={pending}
 								handleRefresh={handleRefresh}
 							/>
-						</Stack>
+							<ApprovedTable
+								approved={approved}
+								handleRefresh={handleRefresh}
+							/>
+						</SimpleGrid>
 					</Container>
 				) : (
 					<Container maxW="xs" py={4}>

@@ -16,7 +16,7 @@ import {
 	IconButton
 } from '@chakra-ui/react';
 
-const SubmissionsTable = ({submissions, handleRefresh}) => {
+const PendingTable = ({pending, handleRefresh}) => {
 	const toast = useToast();
 
 	const handleApprove = (address) => {
@@ -71,17 +71,17 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 				<Table variant="striped" colorScheme="gray">
 					<Thead>
 						<Tr>
-							<Th>Project Name</Th>
-							<Th>Status</Th>
+							<Th>Community Name</Th>
+							<Th>Submitted By</Th>
 							<Th textAlign="center">Options</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
-						{submissions.map((row) => {
+						{pending.map((row) => {
 							return (
 								<Tr key={row.address}>
-									<Td>{row?.project}</Td>
-									<Td>{row?.status?.name}</Td>
+									<Td>{row?.communityName}</Td>
+									<Td>{row?.discordId}</Td>
 									<Td>
 										<Stack direction="row" justify="center">
 											<Button
@@ -112,4 +112,4 @@ const SubmissionsTable = ({submissions, handleRefresh}) => {
 	);
 };
 
-export default SubmissionsTable;
+export default PendingTable;
