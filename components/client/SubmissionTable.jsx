@@ -10,9 +10,11 @@ import {
 	Heading,
 	Stack,
 	IconButton,
-	Flex
+	Flex,
+	TableCaption,
+	Link
 } from '@chakra-ui/react';
-import {RepeatIcon} from '@chakra-ui/icons';
+import {RepeatIcon, ExternalLinkIcon} from '@chakra-ui/icons';
 
 const SubmissionTable = ({submission, handleRefresh}) => {
 	return (
@@ -36,6 +38,13 @@ const SubmissionTable = ({submission, handleRefresh}) => {
 			</Flex>
 			<TableContainer w="full" h="full" overflowY>
 				<Table variant="striped" colorScheme="gray">
+					<TableCaption>
+						{submission?.link && (
+							<Link href={submission?.link} isExternal>
+								{submission?.link} <ExternalLinkIcon mx="2px" />
+							</Link>
+						)}
+					</TableCaption>
 					<Thead>
 						<Tr>
 							<Th>Community Name</Th>

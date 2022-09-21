@@ -24,6 +24,7 @@ model Submission {
   paymentPlan   String   @map("payment_plan")
   statusId      Int      @default(1) @map("status_id")
   status        Status   @relation(fields: [statusId], references: [id])
+  link          String?
 
   @@index([address, statusId])
 }

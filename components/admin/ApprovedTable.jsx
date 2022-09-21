@@ -1,6 +1,5 @@
 import {RepeatIcon} from '@chakra-ui/icons';
 import {
-	Button,
 	Flex,
 	Heading,
 	Stack,
@@ -13,33 +12,76 @@ import {
 	Tr,
 	useColorModeValue,
 	useToast,
-	IconButton
+	IconButton,
+	InputGroup,
+	Input,
+	InputRightElement
 } from '@chakra-ui/react';
+import {useForm, useController} from 'react-hook-form';
+import {EditIcon} from '@chakra-ui/icons';
 
-const ApprovedTable = ({approved, handleRefresh}) => {
+function LinkInput({address, link, handleRefresh}) {
+	const {
+		handleSubmit,
+		formState: {isSubmitting},
+		control
+	} = useForm();
+
 	const toast = useToast();
 
-	const handleUpdate = (address, link) => {
+	const {field} = useController({
+		name: 'link',
+		defaultValue: link,
+		control
+	});
+
+	const onSubmit = (values) => {
 		const showToast = () => {
 			return toast({
-				title: statusId === 2 ? 'Approved' : 'Rejected',
+				title: 'Link updated',
 				status: 'info',
 				isClosable: true
 			});
 		};
 
-		// fetch(`http://localhost:3000/api/submissions/${address}`, {
-		// 	method: 'PUT',
-		// 	body: JSON.stringify({link}),
-		// 	headers: {'Content-type': 'application/json; charset=UTF-8'}
-		// })
-		// 	.then(() => {
-		// 		showToast();
-		// 		handleRefresh();
-		// 	})
-		// 	.catch((err) => console.log(err));
+		fetch(`http://localhost:3000/api/submissions/${address}`, {
+			method: 'PUT',
+			body: JSON.stringify(values),
+			headers: {'Content-type': 'application/json; charset=UTF-8'}
+		})
+			.then((data) => {
+				showToast();
+				handleRefresh();
+			})
+			.catch((err) => console.log(err));
 	};
 
+	return (
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<InputGroup minW="48">
+				<Input
+					id="link"
+					variant="flushed"
+					{...field}
+					type="text"
+					placeholder="Enter Link"
+				/>
+				<InputRightElement>
+					<IconButton
+						size="sm"
+						isLoading={isSubmitting}
+						type="submit"
+						colorScheme="purple"
+						aria-label="Update link"
+						icon={<EditIcon />}
+					/>
+				</InputRightElement>
+			</InputGroup>
+		</form>
+	);
+}
+
+const ApprovedTable = ({approved, handleRefresh}) => {
 	return (
 		<Stack
 			p={8}
@@ -74,7 +116,13 @@ const ApprovedTable = ({approved, handleRefresh}) => {
 								<Tr key={row.address}>
 									<Td>{row?.communityName}</Td>
 									<Td>{row?.discordId}</Td>
-									<Td>Put link here</Td>
+									<Td>
+										<LinkInput
+											address={row.address}
+											link={row?.link}
+											handleRefresh={handleRefresh}
+										/>
+									</Td>
 								</Tr>
 							);
 						})}
