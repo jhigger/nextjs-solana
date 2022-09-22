@@ -1,97 +1,111 @@
 import {
-    Button,
-    FormControl,
-    Heading,
-    Input,
-    Stack,
-    useColorModeValue,
-    useToast
+	Button,
+	Container,
+	FormControl,
+	FormErrorMessage,
+	Heading,
+	Input,
+	Stack,
+	useColorModeValue,
+	useToast
 } from '@chakra-ui/react';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
-const LoginPanel = ({handleLogin}) => {
+import { useRouter } from 'next/router';
+
+const LoginPanel = () => {
 	const {
 		handleSubmit,
 		register,
-		formState: {errors, isSubmitting},
+		formState: { errors, isSubmitting },
 		reset
 	} = useForm();
 
 	const toast = useToast();
+	const router = useRouter();
 
-	function onSubmit(values) {
-		const showToast = () => {
-			return toast({
-				title: `Logged In`,
-				status: 'info',
-				isClosable: true
+	const onSubmit = (values) => {
+		const { username, password } = values;
+
+		signIn('credentials', {
+			username,
+			password,
+			callbackUrl: `${
+				router.query.callbackUrl
+					? router.query.callbackUrl
+					: window.location.origin
+			}`
+		})
+			.then((res) => {
+				return toast({
+					title: `Logged In`,
+					status: 'success',
+					isClosable: true
+				});
+				reset();
+			})
+			.catch((error) => {
+				return toast({
+					title: `Incorrect Credentials`,
+					status: `Error: ${error}`,
+					isClosable: true
+				});
 			});
-		};
-
-		if (values.user === 'admin' && values.pass === 'admin') {
-			showToast();
-			reset();
-			handleLogin(true);
-			return;
-		}
-
-		return toast({
-			title: `Incorrect Credentials`,
-			status: 'error',
-			isClosable: true
-		});
-	}
+	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Stack
-				p={8}
-				shadow="md"
-				bg={useColorModeValue('gray.50', 'gray.900')}
-				borderWidth="1px"
-				borderRadius="lg"
-				spacing={4}
-			>
-				<Heading as="h1" align="center">
-					Login
-				</Heading>
-
-				<FormControl isInvalid={errors.user} isRequired>
-					<Input
-						placeholder="Username"
-						id="user"
-						type="text"
-						{...register('user', {
-							required: 'This is required'
-						})}
-					/>
-					{/* <FormErrorMessage>
-					{errors.user && errors.user}
-				</FormErrorMessage> */}
-				</FormControl>
-
-				<FormControl isInvalid={errors.pass} isRequired>
-					<Input
-						placeholder="Password"
-						id="pass"
-						type="password"
-						{...register('pass', {
-							required: 'This is required'
-						})}
-					/>
-					{/* <FormErrorMessage>
-					{errors.pass && errors.pass}
-				</FormErrorMessage> */}
-				</FormControl>
-				<Button
-					colorScheme="purple"
-					isLoading={isSubmitting}
-					type="submit"
+		<Container maxW="xs">
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Stack
+					p={8}
+					shadow="md"
+					bg={useColorModeValue('gray.50', 'gray.900')}
+					borderWidth="1px"
+					borderRadius="lg"
+					spacing={4}
 				>
-					Login
-				</Button>
-			</Stack>
-		</form>
+					<Heading as="h1" align="center">
+						Login
+					</Heading>
+
+					<FormControl isInvalid={errors.username} isRequired>
+						<Input
+							placeholder="Username"
+							id="username"
+							type="text"
+							{...register('username', {
+								required: 'This is required'
+							})}
+						/>
+						<FormErrorMessage>
+							{errors.username && errors.username}
+						</FormErrorMessage>
+					</FormControl>
+
+					<FormControl isInvalid={errors.password} isRequired>
+						<Input
+							placeholder="Password"
+							id="password"
+							type="password"
+							{...register('password', {
+								required: 'This is required'
+							})}
+						/>
+						<FormErrorMessage>
+							{errors.password && errors.password}
+						</FormErrorMessage>
+					</FormControl>
+					<Button
+						colorScheme="purple"
+						isLoading={isSubmitting}
+						type="submit"
+					>
+						Login
+					</Button>
+				</Stack>
+			</form>
+		</Container>
 	);
 };
 

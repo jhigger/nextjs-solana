@@ -1,20 +1,22 @@
 import { Container, Flex, SimpleGrid } from '@chakra-ui/react';
+import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import ApprovedTable from '../components/admin/ApprovedTable';
-import LoginPanel from '../components/admin/LoginPanel';
 import PendingTable from '../components/admin/PendingTable';
 
-const admin = () => {
+const Admin = () => {
+	const { data: session } = useSession();
+
+	if (!session) {
+		signIn();
+		return <></>;
+	}
+
 	const [pending, setPending] = useState([]);
 	const [approved, setApproved] = useState([]);
 
 	const [refresh, toggleRefresh] = useState(false);
-	const [loggedIn, setLoggedIn] = useState(false);
-
-	const handleLogin = (value) => {
-		setLoggedIn(value);
-	};
 
 	const handleRefresh = () => {
 		toggleRefresh((prev) => !prev);
@@ -47,27 +49,21 @@ const admin = () => {
 				<title>Admin Dashboard</title>
 			</Head>
 			<Flex as="main" minH="100vh" justify="center">
-				{loggedIn ? (
-					<Container maxW="container.xl" py={4}>
-						<SimpleGrid columns={[1, 2]} spacing={4}>
-							<PendingTable
-								pending={pending}
-								handleRefresh={handleRefresh}
-							/>
-							<ApprovedTable
-								approved={approved}
-								handleRefresh={handleRefresh}
-							/>
-						</SimpleGrid>
-					</Container>
-				) : (
-					<Container maxW="xs" py={4}>
-						<LoginPanel handleLogin={handleLogin} />
-					</Container>
-				)}
+				<Container maxW="container.xl" py={4}>
+					<SimpleGrid columns={[1, 2]} spacing={4}>
+						<PendingTable
+							pending={pending}
+							handleRefresh={handleRefresh}
+						/>
+						<ApprovedTable
+							approved={approved}
+							handleRefresh={handleRefresh}
+						/>
+					</SimpleGrid>
+				</Container>
 			</Flex>
 		</>
 	);
 };
 
-export default admin;
+export default Admin;
