@@ -1,35 +1,39 @@
 import { EditIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
-    Flex,
-    Heading, IconButton, Input, InputGroup, InputRightElement, Stack,
-    Table,
-    TableContainer,
-    Tbody,
-    Td,
-    Th,
-    Thead,
-    Tr,
-    useColorModeValue,
-    useToast
+	Flex,
+	Heading,
+	IconButton,
+	Input,
+	InputGroup,
+	InputRightElement,
+	Spinner,
+	Stack,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue,
+	useToast
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 
-function LinkInput({address, link, handleRefresh}) {
-	const {
-		handleSubmit,
-		formState: {isSubmitting},
-		control
-	} = useForm();
-
+function LinkInput({ address, link, handleRefresh }) {
+	const { handleSubmit, control } = useForm();
+	const [loading, setLoading] = useState(false);
 	const toast = useToast();
 
-	const {field} = useController({
+	const { field } = useController({
 		name: 'link',
 		defaultValue: link,
 		control
 	});
 
 	const onSubmit = (values) => {
+		setLoading(true);
 		const showToast = () => {
 			return toast({
 				title: 'Link updated',
@@ -41,9 +45,10 @@ function LinkInput({address, link, handleRefresh}) {
 		fetch(`http://localhost:3000/api/submissions/${address}`, {
 			method: 'PUT',
 			body: JSON.stringify(values),
-			headers: {'Content-type': 'application/json; charset=UTF-8'}
+			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then((data) => {
+				setLoading(false);
 				showToast();
 				handleRefresh();
 			})
@@ -61,21 +66,24 @@ function LinkInput({address, link, handleRefresh}) {
 					placeholder="Enter Link"
 				/>
 				<InputRightElement>
-					<IconButton
-						size="sm"
-						isLoading={isSubmitting}
-						type="submit"
-						colorScheme="purple"
-						aria-label="Update link"
-						icon={<EditIcon />}
-					/>
+					{loading ? (
+						<Spinner size="sm" />
+					) : (
+						<IconButton
+							size="sm"
+							type="submit"
+							colorScheme="purple"
+							aria-label="Update link"
+							icon={<EditIcon />}
+						/>
+					)}
 				</InputRightElement>
 			</InputGroup>
 		</form>
 	);
 }
 
-const ApprovedTable = ({approved, handleRefresh}) => {
+const ApprovedTable = ({ approved, handleRefresh }) => {
 	return (
 		<Stack
 			p={8}
