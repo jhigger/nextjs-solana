@@ -1,19 +1,17 @@
-import {RepeatIcon} from '@chakra-ui/icons';
+import { RepeatIcon } from '@chakra-ui/icons';
 import {
-	Button,
-	Flex,
-	Heading,
-	Stack,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
-	Th,
-	Thead,
-	Tr,
-	useColorModeValue,
-	useToast,
-	IconButton
+    Button,
+    Flex,
+    Heading, IconButton, Stack,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+    useColorModeValue,
+    useToast
 } from '@chakra-ui/react';
 
 const PendingTable = ({pending, handleRefresh}) => {

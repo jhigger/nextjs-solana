@@ -1,6 +1,6 @@
-import {Container, Flex, SimpleGrid, Stack} from '@chakra-ui/react';
+import { Container, Flex, SimpleGrid } from '@chakra-ui/react';
 import Head from 'next/head';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import ApprovedTable from '../components/admin/ApprovedTable';
 import LoginPanel from '../components/admin/LoginPanel';
 import PendingTable from '../components/admin/PendingTable';

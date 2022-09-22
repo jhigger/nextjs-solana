@@ -1,13 +1,13 @@
 import {
-	Button,
-	FormControl,
-	Heading,
-	Input,
-	Stack,
-	useColorModeValue,
-	useToast
+    Button,
+    FormControl,
+    Heading,
+    Input,
+    Stack,
+    useColorModeValue,
+    useToast
 } from '@chakra-ui/react';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const LoginPanel = ({handleLogin}) => {
 	const {

@@ -1,5 +1,5 @@
-import {Flex, Heading, useColorModeValue, Spacer} from '@chakra-ui/react';
-import {WalletMultiButton} from '@solana/wallet-adapter-react-ui';
+import { Flex, Heading, Spacer, useColorModeValue } from '@chakra-ui/react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const Header = () => {
 	return (

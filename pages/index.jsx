@@ -1,7 +1,7 @@
-import {Container, Flex, Stack} from '@chakra-ui/react';
-import {useWallet} from '@solana/wallet-adapter-react';
+import { Container, Flex, Stack } from '@chakra-ui/react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import Head from 'next/head';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Form from '../components/client/Form';
 import Header from '../components/client/Header';
 import SubmissionTable from '../components/client/SubmissionTable';

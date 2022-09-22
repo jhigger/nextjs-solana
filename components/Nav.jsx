@@ -1,12 +1,12 @@
-import {MoonIcon, SunIcon} from '@chakra-ui/icons';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
-	Box,
-	Button,
-	Flex,
-	Link,
-	Stack,
-	useColorMode,
-	useColorModeValue
+    Box,
+    Button,
+    Flex,
+    Link,
+    Stack,
+    useColorMode,
+    useColorModeValue
 } from '@chakra-ui/react';
 
 const NavLink = ({children}) => (

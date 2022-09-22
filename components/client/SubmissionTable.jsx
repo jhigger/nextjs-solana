@@ -1,20 +1,7 @@
+import { ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
-	useColorModeValue,
-	Table,
-	Thead,
-	Tbody,
-	Tr,
-	Th,
-	Td,
-	TableContainer,
-	Heading,
-	Stack,
-	IconButton,
-	Flex,
-	TableCaption,
-	Link
+    Flex, Heading, IconButton, Link, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue
 } from '@chakra-ui/react';
-import {RepeatIcon, ExternalLinkIcon} from '@chakra-ui/icons';
 
 const SubmissionTable = ({submission, handleRefresh}) => {
 	return (

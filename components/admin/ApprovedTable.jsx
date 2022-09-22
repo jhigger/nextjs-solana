@@ -1,24 +1,18 @@
-import {RepeatIcon} from '@chakra-ui/icons';
+import { EditIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
-	Flex,
-	Heading,
-	Stack,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
-	Th,
-	Thead,
-	Tr,
-	useColorModeValue,
-	useToast,
-	IconButton,
-	InputGroup,
-	Input,
-	InputRightElement
+    Flex,
+    Heading, IconButton, Input, InputGroup, InputRightElement, Stack,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+    useColorModeValue,
+    useToast
 } from '@chakra-ui/react';
-import {useForm, useController} from 'react-hook-form';
-import {EditIcon} from '@chakra-ui/icons';
+import { useController, useForm } from 'react-hook-form';
 
 function LinkInput({address, link, handleRefresh}) {
 	const {

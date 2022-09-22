@@ -1,4 +1,4 @@
-import {ChakraProvider} from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Nav from '../components/Nav';
 import theme from '../theme';

@@ -1,20 +1,12 @@
 import {
-	Button,
-	Flex,
-	FormControl,
-	FormErrorMessage,
-	FormLabel,
-	Input,
-	Stack,
-	useColorModeValue,
-	useToast,
-	Container,
-	useRadioGroup,
-	useRadio,
-	SimpleGrid,
-	Box
+    Box, Button, Container, Flex,
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
+    Input, SimpleGrid, Stack,
+    useColorModeValue, useRadio, useRadioGroup, useToast
 } from '@chakra-ui/react';
-import {useForm, useController} from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 
 function RadioCard(props) {
 	const {getInputProps, getCheckboxProps} = useRadio(props);
