@@ -6,12 +6,7 @@ import ApprovedTable from '../components/admin/ApprovedTable';
 import PendingTable from '../components/admin/PendingTable';
 
 const Admin = () => {
-	const { data: session } = useSession();
-
-	if (!session) {
-		signIn();
-		return <></>;
-	}
+	const { status } = useSession();
 
 	const [pending, setPending] = useState([]);
 	const [approved, setApproved] = useState([]);
@@ -43,27 +38,34 @@ const Admin = () => {
 		handleFetchApproved();
 	}, [refresh]);
 
-	return (
-		<>
-			<Head>
-				<title>Admin Dashboard</title>
-			</Head>
-			<Flex as="main" minH="100vh" justify="center">
-				<Container maxW="container.xl" py={4}>
-					<SimpleGrid columns={[1, 2]} spacing={4}>
-						<PendingTable
-							pending={pending}
-							handleRefresh={handleRefresh}
-						/>
-						<ApprovedTable
-							approved={approved}
-							handleRefresh={handleRefresh}
-						/>
-					</SimpleGrid>
-				</Container>
-			</Flex>
-		</>
-	);
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			signIn();
+		}
+	}, [status]);
+
+	if (status === 'authenticated')
+		return (
+			<>
+				<Head>
+					<title>Admin Dashboard</title>
+				</Head>
+				<Flex as="main" minH="100vh" justify="center">
+					<Container maxW="container.xl" py={4}>
+						<SimpleGrid columns={[1, 2]} spacing={4}>
+							<PendingTable
+								pending={pending}
+								handleRefresh={handleRefresh}
+							/>
+							<ApprovedTable
+								approved={approved}
+								handleRefresh={handleRefresh}
+							/>
+						</SimpleGrid>
+					</Container>
+				</Flex>
+			</>
+		);
 };
 
 export default Admin;
