@@ -3,6 +3,7 @@ import {
 	Box,
 	Button,
 	Flex,
+	IconButton,
 	Link,
 	Stack,
 	useColorMode,
@@ -46,13 +47,17 @@ export default function Nav() {
 
 					<Flex alignItems={'center'}>
 						<Stack direction={'row'} spacing={7}>
-							<Button onClick={toggleColorMode}>
-								{colorMode === 'light' ? (
-									<MoonIcon />
-								) : (
-									<SunIcon />
-								)}
-							</Button>
+							<IconButton
+								aria-label="Change color mode"
+								icon={
+									colorMode === 'light' ? (
+										<MoonIcon />
+									) : (
+										<SunIcon />
+									)
+								}
+								onClick={toggleColorMode}
+							/>
 							{status === 'authenticated' && (
 								<Button
 									onClick={() => {
