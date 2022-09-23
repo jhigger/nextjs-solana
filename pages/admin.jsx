@@ -19,7 +19,7 @@ const Admin = () => {
 
 	const handleFetchPending = async () => {
 		const res = await fetch(
-			`http://localhost:3000/api/submissions/status/1`
+			`${process.env.VERCEL_URL}/api/submissions/status/1`
 		);
 		const data = await res.json();
 		setPending(data);
@@ -27,7 +27,7 @@ const Admin = () => {
 
 	const handleFetchApproved = async () => {
 		const res = await fetch(
-			`http://localhost:3000/api/submissions/status/2`
+			`${process.env.VERCEL_URL}/api/submissions/status/2`
 		);
 		const data = await res.json();
 		setApproved(data);

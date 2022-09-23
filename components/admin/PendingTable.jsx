@@ -45,7 +45,7 @@ const PendingTable = ({ pending, handleRefresh }) => {
 			});
 		};
 
-		fetch(`http://localhost:3000/api/submissions/${address}`, {
+		fetch(`${process.env.VERCEL_URL}/api/submissions/${address}`, {
 			method: 'PUT',
 			body: JSON.stringify({ statusId }),
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }

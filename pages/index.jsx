@@ -7,7 +7,7 @@ import Header from '../components/client/Header';
 import SubmissionTable from '../components/client/SubmissionTable';
 
 export default function Home() {
-	const {publicKey} = useWallet();
+	const { publicKey } = useWallet();
 	const [address, setAddress] = useState('');
 	const [submission, setSubmission] = useState(null);
 	const [refresh, toggleRefresh] = useState(false);
@@ -19,7 +19,7 @@ export default function Home() {
 	const handleFetch = async () => {
 		if (!publicKey) return;
 		const res = await fetch(
-			`http://localhost:3000/api/submissions/${address}`
+			`${process.env.VERCEL_URL}/api/submissions/${address}`
 		);
 		const data = await res.json();
 		if (!data) return setSubmission(null);

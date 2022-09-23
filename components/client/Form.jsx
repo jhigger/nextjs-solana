@@ -1,15 +1,23 @@
 import {
-    Box, Button, Container, Flex,
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    Input, SimpleGrid, Stack,
-    useColorModeValue, useRadio, useRadioGroup, useToast
+	Box,
+	Button,
+	Container,
+	Flex,
+	FormControl,
+	FormErrorMessage,
+	FormLabel,
+	Input,
+	SimpleGrid,
+	Stack,
+	useColorModeValue,
+	useRadio,
+	useRadioGroup,
+	useToast
 } from '@chakra-ui/react';
 import { useController, useForm } from 'react-hook-form';
 
 function RadioCard(props) {
-	const {getInputProps, getCheckboxProps} = useRadio(props);
+	const { getInputProps, getCheckboxProps } = useRadio(props);
 
 	const input = getInputProps();
 	const checkbox = getCheckboxProps();
@@ -40,11 +48,11 @@ function RadioCard(props) {
 	);
 }
 
-const Form = ({publicKey, handleRefresh}) => {
+const Form = ({ publicKey, handleRefresh }) => {
 	const {
 		handleSubmit,
 		register,
-		formState: {errors, isSubmitting},
+		formState: { errors, isSubmitting },
 		reset,
 		control
 	} = useForm();
@@ -60,10 +68,10 @@ const Form = ({publicKey, handleRefresh}) => {
 			});
 		};
 
-		fetch('http://localhost:3000/api/submit', {
+		fetch('${process.env.VERCEL_URL}/api/submit', {
 			method: 'POST',
 			body: JSON.stringify(values),
-			headers: {'Content-type': 'application/json; charset=UTF-8'}
+			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then(() => {
 				showToast();
@@ -76,14 +84,14 @@ const Form = ({publicKey, handleRefresh}) => {
 
 	const options = ['basic', 'premium', 'pixel', '1/1 artist'];
 
-	const {field} = useController({
+	const { field } = useController({
 		name: 'paymentPlan',
 		defaultValue: 'basic',
 		control,
-		rules: {required: 'Payment is required'}
+		rules: { required: 'Payment is required' }
 	});
 
-	const {getRootProps, getRadioProps} = useRadioGroup({...field});
+	const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
 	return (
 		<Flex
@@ -196,7 +204,7 @@ const Form = ({publicKey, handleRefresh}) => {
 									return (
 										<RadioCard
 											key={value}
-											{...getRadioProps({value})}
+											{...getRadioProps({ value })}
 											type="radio"
 											register={register}
 										>
@@ -214,7 +222,7 @@ const Form = ({publicKey, handleRefresh}) => {
 						<Button
 							bg="purple.600"
 							color="purple.100"
-							_hover={{bg: 'purple.500'}}
+							_hover={{ bg: 'purple.500' }}
 							isLoading={isSubmitting}
 							type="submit"
 						>
