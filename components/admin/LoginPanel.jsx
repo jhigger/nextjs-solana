@@ -35,22 +35,28 @@ const LoginPanel = () => {
 				router.query.callbackUrl
 					? router.query.callbackUrl
 					: window.location.origin
-			}`
+			}`,
+			redirect: false
 		})
 			.then((res) => {
-				return toast({
+				reset();
+				if (!res.ok) {
+					return toast({
+						title: res.error,
+						status: 'error',
+						isClosable: true
+					});
+				}
+
+				router.push(res.url);
+				toast({
 					title: `Logged In`,
 					status: 'success',
 					isClosable: true
 				});
-				reset();
 			})
 			.catch((error) => {
-				return toast({
-					title: `Incorrect Credentials`,
-					status: `Error: ${error}`,
-					isClosable: true
-				});
+				console.log(error);
 			});
 	};
 
@@ -79,7 +85,7 @@ const LoginPanel = () => {
 							})}
 						/>
 						<FormErrorMessage>
-							{errors.username && errors.username}
+							{errors.username && errors.username.message}
 						</FormErrorMessage>
 					</FormControl>
 
@@ -93,9 +99,10 @@ const LoginPanel = () => {
 							})}
 						/>
 						<FormErrorMessage>
-							{errors.password && errors.password}
+							{errors.password && errors.password.message}
 						</FormErrorMessage>
 					</FormControl>
+
 					<Button
 						colorScheme="purple"
 						isLoading={isSubmitting}
