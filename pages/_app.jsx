@@ -15,7 +15,7 @@ const WalletConnectionProvider = dynamic(
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
-		<SessionProvider session={session}>
+		<SessionProvider session={session} basePath="/api/auth">
 			<ChakraProvider resetCSS theme={theme}>
 				<WalletConnectionProvider>
 					<Nav />
