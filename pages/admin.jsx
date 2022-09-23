@@ -18,17 +18,13 @@ const Admin = () => {
 	};
 
 	const handleFetchPending = async () => {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submissions/status/1`
-		);
+		const res = await fetch(`/api/submissions/status/1`);
 		const data = await res.json();
 		setPending(data);
 	};
 
 	const handleFetchApproved = async () => {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submissions/status/2`
-		);
+		const res = await fetch(`/api/submissions/status/2`);
 		const data = await res.json();
 		setApproved(data);
 	};
