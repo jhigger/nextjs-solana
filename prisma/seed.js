@@ -1,10 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
 const main = async () => {
 	await prisma.status.createMany({
-		data: [{ name: 'Pending' }, { name: 'Approve' }, { name: 'Rejected' }]
+		data: [
+			{ id: 1, name: 'Pending' },
+			{ id: 2, name: 'Approve' },
+			{ id: 3, name: 'Rejected' }
+		]
 	});
 };
 
