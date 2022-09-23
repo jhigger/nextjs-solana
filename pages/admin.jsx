@@ -34,8 +34,10 @@ const Admin = () => {
 	};
 
 	useEffect(() => {
-		handleFetchPending();
-		handleFetchApproved();
+		if (status === 'authenticated') {
+			handleFetchPending();
+			handleFetchApproved();
+		}
 	}, [refresh]);
 
 	useEffect(() => {
