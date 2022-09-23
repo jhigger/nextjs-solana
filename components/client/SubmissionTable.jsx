@@ -1,9 +1,51 @@
-import { ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
-    Flex, Heading, IconButton, Link, Stack, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue
+	CheckIcon,
+	ExternalLinkIcon,
+	RepeatIcon,
+	SmallCloseIcon,
+	TimeIcon
+} from '@chakra-ui/icons';
+import {
+	Center,
+	Flex,
+	Heading,
+	IconButton,
+	Link,
+	Stack,
+	Table,
+	TableCaption,
+	TableContainer,
+	Tag,
+	TagLabel,
+	TagLeftIcon,
+	Tbody,
+	Td,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue
 } from '@chakra-ui/react';
 
-const SubmissionTable = ({submission, handleRefresh}) => {
+const Pill = ({ status }) => {
+	const variant = {
+		Pending: { colorScheme: 'yellow', icon: TimeIcon },
+		Approved: { colorScheme: 'green', icon: CheckIcon },
+		Rejected: { colorScheme: 'red', icon: SmallCloseIcon }
+	};
+
+	return (
+		<Tag
+			size="lg"
+			colorScheme={variant[status]?.colorScheme}
+			borderRadius="full"
+		>
+			<TagLeftIcon boxSize={4} as={variant[status]?.icon} />
+			<TagLabel>{status}</TagLabel>
+		</Tag>
+	);
+};
+
+const SubmissionTable = ({ submission, handleRefresh }) => {
 	return (
 		<Stack
 			p={8}
@@ -35,13 +77,19 @@ const SubmissionTable = ({submission, handleRefresh}) => {
 					<Thead>
 						<Tr>
 							<Th>Community Name</Th>
-							<Th>Status</Th>
+							<Th>Payment Plan</Th>
+							<Th textAlign="center">Status</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
 						<Tr>
 							<Td>{submission?.communityName}</Td>
-							<Td>{submission?.status?.name}</Td>
+							<Td>{submission?.paymentPlan}</Td>
+							<Td>
+								<Center>
+									<Pill status={submission?.status?.name} />
+								</Center>
+							</Td>
 						</Tr>
 					</Tbody>
 				</Table>
