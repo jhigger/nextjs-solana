@@ -10,9 +10,11 @@ import {
 	useColorModeValue
 } from '@chakra-ui/react';
 import { signOut, useSession } from 'next-auth/react';
+import { Link as NextLink } from 'next/link';
 
 const NavLink = ({ children }) => (
 	<Link
+		as={NextLink}
 		px={2}
 		py={1}
 		rounded={'md'}
@@ -43,8 +45,9 @@ export default function Nav() {
 					alignItems={'center'}
 					justifyContent={'space-between'}
 				>
-					<Box>Logo</Box>
-
+					<Link as={NextLink} href="/">
+						<Box>Logo</Box>
+					</Link>
 					<Flex alignItems={'center'}>
 						<Stack direction={'row'} spacing={7}>
 							<IconButton
