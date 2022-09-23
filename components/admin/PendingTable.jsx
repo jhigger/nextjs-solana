@@ -1,20 +1,31 @@
-import { RepeatIcon } from '@chakra-ui/icons';
 import {
-    Button,
-    Flex,
-    Heading, IconButton, Stack,
-    Table,
-    TableContainer,
-    Tbody,
-    Td,
-    Th,
-    Thead,
-    Tr,
-    useColorModeValue,
-    useToast
+	CheckIcon,
+	CloseIcon,
+	HamburgerIcon,
+	RepeatIcon
+} from '@chakra-ui/icons';
+import {
+	Center,
+	Flex,
+	Heading,
+	IconButton,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Stack,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue,
+	useToast
 } from '@chakra-ui/react';
 
-const PendingTable = ({pending, handleRefresh}) => {
+const PendingTable = ({ pending, handleRefresh }) => {
 	const toast = useToast();
 
 	const handleApprove = (address) => {
@@ -36,8 +47,8 @@ const PendingTable = ({pending, handleRefresh}) => {
 
 		fetch(`http://localhost:3000/api/submissions/${address}`, {
 			method: 'PUT',
-			body: JSON.stringify({statusId}),
-			headers: {'Content-type': 'application/json; charset=UTF-8'}
+			body: JSON.stringify({ statusId }),
+			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then(() => {
 				showToast();
@@ -66,7 +77,7 @@ const PendingTable = ({pending, handleRefresh}) => {
 				/>
 			</Flex>
 			<TableContainer w="full" h="full" overflowY>
-				<Table variant="striped" colorScheme="gray">
+				<Table variant="striped" colorScheme="gray" size="md">
 					<Thead>
 						<Tr>
 							<Th>Community Name</Th>
@@ -81,24 +92,38 @@ const PendingTable = ({pending, handleRefresh}) => {
 									<Td>{row?.communityName}</Td>
 									<Td>{row?.discordId}</Td>
 									<Td>
-										<Stack direction="row" justify="center">
-											<Button
-												colorScheme="green"
-												onClick={() =>
-													handleApprove(row.address)
-												}
-											>
-												Approve
-											</Button>
-											<Button
-												colorScheme="red"
-												onClick={() =>
-													handleReject(row.address)
-												}
-											>
-												Reject
-											</Button>
-										</Stack>
+										<Menu>
+											<Center>
+												<MenuButton
+													as={IconButton}
+													aria-label="Options"
+													icon={<HamburgerIcon />}
+													variant="ghost"
+												/>
+											</Center>
+											<MenuList>
+												<MenuItem
+													icon={<CheckIcon />}
+													onClick={() =>
+														handleApprove(
+															row.address
+														)
+													}
+												>
+													Approve
+												</MenuItem>
+												<MenuItem
+													icon={<CloseIcon />}
+													onClick={() =>
+														handleReject(
+															row.address
+														)
+													}
+												>
+													Reject
+												</MenuItem>
+											</MenuList>
+										</Menu>
 									</Td>
 								</Tr>
 							);
