@@ -19,7 +19,7 @@ export default function Home() {
 	const handleFetch = async () => {
 		if (!publicKey) return;
 		const res = await fetch(
-			`${process.env.VERCEL_URL}/api/submissions/${address}`
+			`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submissions/${address}`
 		);
 		const data = await res.json();
 		if (!data) return setSubmission(null);

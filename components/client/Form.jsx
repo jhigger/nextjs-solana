@@ -68,7 +68,7 @@ const Form = ({ publicKey, handleRefresh }) => {
 			});
 		};
 
-		fetch('${process.env.VERCEL_URL}/api/submit', {
+		fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submit`, {
 			method: 'POST',
 			body: JSON.stringify(values),
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }
