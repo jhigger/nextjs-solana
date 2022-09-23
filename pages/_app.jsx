@@ -1,8 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { SessionProvider } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import Nav from '../components/Nav';
 import theme from '../theme';
-import { SessionProvider } from 'next-auth/react';
 
 require('@solana/wallet-adapter-react-ui/styles.css');
 

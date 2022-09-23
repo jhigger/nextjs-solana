@@ -45,11 +45,14 @@ const PendingTable = ({ pending, handleRefresh }) => {
 			});
 		};
 
-		fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submissions/${address}`, {
-			method: 'PUT',
-			body: JSON.stringify({ statusId }),
-			headers: { 'Content-type': 'application/json; charset=UTF-8' }
-		})
+		fetch(
+			`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/submissions/${address}`,
+			{
+				method: 'PUT',
+				body: JSON.stringify({ statusId }),
+				headers: { 'Content-type': 'application/json; charset=UTF-8' }
+			}
+		)
 			.then(() => {
 				showToast();
 				handleRefresh();
