@@ -1,15 +1,16 @@
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
-    Box,
-    Button,
-    Flex,
-    Link,
-    Stack,
-    useColorMode,
-    useColorModeValue
+	Box,
+	Button,
+	Flex,
+	Link,
+	Stack,
+	useColorMode,
+	useColorModeValue
 } from '@chakra-ui/react';
+import { signOut, useSession } from 'next-auth/react';
 
-const NavLink = ({children}) => (
+const NavLink = ({ children }) => (
 	<Link
 		px={2}
 		py={1}
@@ -25,7 +26,9 @@ const NavLink = ({children}) => (
 );
 
 export default function Nav() {
-	const {colorMode, toggleColorMode} = useColorMode();
+	const { colorMode, toggleColorMode } = useColorMode();
+	const { status } = useSession();
+
 	return (
 		<>
 			<Box
@@ -50,6 +53,15 @@ export default function Nav() {
 									<SunIcon />
 								)}
 							</Button>
+							{status === 'authenticated' && (
+								<Button
+									onClick={() => {
+										signOut();
+									}}
+								>
+									Logout
+								</Button>
+							)}
 						</Stack>
 					</Flex>
 				</Flex>
