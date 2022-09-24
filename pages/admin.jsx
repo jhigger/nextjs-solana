@@ -34,7 +34,7 @@ const Admin = () => {
 			handleFetchPending();
 			handleFetchApproved();
 		}
-	}, [refresh]);
+	}, [refresh, status]);
 
 	useEffect(() => {
 		if (status === 'unauthenticated') {
