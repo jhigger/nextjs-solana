@@ -47,16 +47,6 @@ const Pill = ({ status }) => {
 };
 
 const SubmissionTable = ({ submission, isLoading, refresh }) => {
-	const {
-		discordId,
-		communityName,
-		discordUrl,
-		twitterUrl,
-		paymentPlan,
-		status,
-		link
-	} = submission;
-
 	return (
 		<Stack
 			p={8}
@@ -95,37 +85,32 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						</Thead>
 						<Tbody>
 							<Tr>
+								<Td>{submission?.discordId}</Td>
+								<Td>{submission?.communityName}</Td>
 								<Td>
 									<Link
-										href={`discordapp.com/users/${discordId}`}
+										href={`${submission?.discordUrl ?? ''}`}
 										isExternal
 									>
-										{discordId}
+										{submission?.discordUrl}
 									</Link>
 								</Td>
-								<Td>{communityName}</Td>
-								<Td>
-									<Link href={discordUrl} isExternal>
-										{discordUrl}
-									</Link>
-								</Td>
-								<Td>
-									<Link href={twitterUrl} isExternal>
-										{twitterUrl}
-									</Link>
-								</Td>
-								<Td>{paymentPlan}</Td>
+								<Td>{submission?.twitterUrl}</Td>
+								<Td>{submission?.paymentPlan}</Td>
 								<Td>
 									<Center>
-										<Pill status={status?.name} />
+										<Pill
+											status={submission?.status?.name}
+										/>
 									</Center>
 								</Td>
 							</Tr>
 						</Tbody>
 						<TableCaption>
-							{link && (
-								<Link href={link} isExternal>
-									{link} <ExternalLinkIcon mx="2px" />
+							{submission?.link && (
+								<Link href={submission?.link} isExternal>
+									{submission?.link}{' '}
+									<ExternalLinkIcon mx="2px" />
 								</Link>
 							)}
 						</TableCaption>
