@@ -9,6 +9,7 @@ import SubmissionTable from '../components/client/SubmissionTable';
 export default function Home() {
 	const { publicKey } = useWallet();
 	const [address, setAddress] = useState('');
+	const [loading, setLoading] = useState(true);
 	const [submission, setSubmission] = useState(null);
 	const [refresh, toggleRefresh] = useState(false);
 
@@ -22,6 +23,7 @@ export default function Home() {
 		const data = await res.json();
 		if (!data) return setSubmission(null);
 		setSubmission(data);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -41,7 +43,7 @@ export default function Home() {
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
 						<Header />
-						{publicKey !== null && (
+						{publicKey !== null && !loading && (
 							<>
 								{submission ? (
 									<SubmissionTable
