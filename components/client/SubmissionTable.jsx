@@ -11,6 +11,7 @@ import {
 	Heading,
 	IconButton,
 	Link,
+	Spinner,
 	Stack,
 	Table,
 	TableCaption,
@@ -45,7 +46,17 @@ const Pill = ({ status }) => {
 	);
 };
 
-const SubmissionTable = ({ submission, handleRefresh }) => {
+const SubmissionTable = ({ submission, isLoading, refresh }) => {
+	const {
+		discordId,
+		communityName,
+		discordUrl,
+		twitterUrl,
+		paymentPlan,
+		status,
+		link
+	} = submission;
+
 	return (
 		<Stack
 			p={8}
@@ -62,38 +73,65 @@ const SubmissionTable = ({ submission, handleRefresh }) => {
 				<IconButton
 					aria-label="Refresh"
 					icon={<RepeatIcon />}
-					onClick={handleRefresh}
+					onClick={refresh}
 				/>
 			</Flex>
-			<TableContainer w="full" h="full" overflowY>
-				<Table variant="striped" colorScheme="gray">
-					<TableCaption>
-						{submission?.link && (
-							<Link href={submission?.link} isExternal>
-								{submission?.link} <ExternalLinkIcon mx="2px" />
-							</Link>
-						)}
-					</TableCaption>
-					<Thead>
-						<Tr>
-							<Th>Community Name</Th>
-							<Th>Payment Plan</Th>
-							<Th textAlign="center">Status</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						<Tr>
-							<Td>{submission?.communityName}</Td>
-							<Td>{submission?.paymentPlan}</Td>
-							<Td>
-								<Center>
-									<Pill status={submission?.status?.name} />
-								</Center>
-							</Td>
-						</Tr>
-					</Tbody>
-				</Table>
-			</TableContainer>
+			{isLoading ? (
+				<Center>
+					<Spinner alignSelf="center" />
+				</Center>
+			) : (
+				<TableContainer w="full" h="full" overflowY>
+					<Table variant="striped" colorScheme="gray">
+						<Thead>
+							<Tr>
+								<Th>Discord ID</Th>
+								<Th>Community Name</Th>
+								<Th>Discord URL</Th>
+								<Th>Twitter URL</Th>
+								<Th>Payment Plan</Th>
+								<Th textAlign="center">Status</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							<Tr>
+								<Td>
+									<Link
+										href={`discordapp.com/users/${discordId}`}
+										isExternal
+									>
+										{discordId}
+									</Link>
+								</Td>
+								<Td>{communityName}</Td>
+								<Td>
+									<Link href={discordUrl} isExternal>
+										{discordUrl}
+									</Link>
+								</Td>
+								<Td>
+									<Link href={twitterUrl} isExternal>
+										{twitterUrl}
+									</Link>
+								</Td>
+								<Td>{paymentPlan}</Td>
+								<Td>
+									<Center>
+										<Pill status={status?.name} />
+									</Center>
+								</Td>
+							</Tr>
+						</Tbody>
+						<TableCaption>
+							{link && (
+								<Link href={link} isExternal>
+									{link} <ExternalLinkIcon mx="2px" />
+								</Link>
+							)}
+						</TableCaption>
+					</Table>
+				</TableContainer>
+			)}
 		</Stack>
 	);
 };

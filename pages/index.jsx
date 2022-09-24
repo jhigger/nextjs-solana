@@ -1,38 +1,22 @@
-import { Container, Flex, Stack } from '@chakra-ui/react';
+import { Container, Flex, Stack, Text } from '@chakra-ui/react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Form from '../components/client/Form';
 import Header from '../components/client/Header';
 import SubmissionTable from '../components/client/SubmissionTable';
+import useSubmission from '../hooks/useSubmission';
 
 export default function Home() {
-	const { publicKey } = useWallet();
-	const [address, setAddress] = useState('');
-	const [loading, setLoading] = useState(true);
-	const [submission, setSubmission] = useState(null);
-	const [refresh, toggleRefresh] = useState(false);
-
-	const handleRefresh = () => {
-		toggleRefresh((prev) => !prev);
-	};
-
-	const handleFetch = async () => {
-		if (!publicKey) return;
-		const res = await fetch(`/api/submissions/${address}`);
-		const data = await res.json();
-		if (!data) return setSubmission(null);
-		setSubmission(data);
-		setLoading(false);
-	};
+	const { wallet, publicKey, connected } = useWallet();
+	const { submission, isLoading, mutate } = useSubmission(
+		publicKey?.toBase58()
+	);
+	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		setAddress(publicKey?.toBase58());
-	}, [publicKey]);
-
-	useEffect(() => {
-		handleFetch();
-	}, [address, refresh]);
+		setShow(wallet && connected);
+	}, [wallet, connected]);
 
 	return (
 		<>
@@ -43,20 +27,20 @@ export default function Home() {
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
 						<Header />
-						{publicKey !== null && !loading && (
-							<>
-								{submission ? (
-									<SubmissionTable
-										submission={submission}
-										handleRefresh={handleRefresh}
-									/>
-								) : (
-									<Form
-										publicKey={publicKey}
-										handleRefresh={handleRefresh}
-									/>
-								)}
-							</>
+						{show ? (
+							isLoading || submission ? (
+								<SubmissionTable
+									submission={submission}
+									isLoading={isLoading}
+									refresh={mutate}
+								/>
+							) : (
+								<Form publicKey={publicKey} refresh={mutate} />
+							)
+						) : (
+							<Text fontSize="lg" align="center">
+								Please connect your wallet first
+							</Text>
 						)}
 					</Stack>
 				</Container>

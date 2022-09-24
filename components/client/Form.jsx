@@ -48,7 +48,7 @@ function RadioCard(props) {
 	);
 }
 
-const Form = ({ publicKey, handleRefresh }) => {
+const Form = ({ publicKey, refresh }) => {
 	const {
 		handleSubmit,
 		register,
@@ -75,7 +75,7 @@ const Form = ({ publicKey, handleRefresh }) => {
 		})
 			.then(() => {
 				showToast();
-				handleRefresh();
+				refresh();
 			})
 			.catch((err) => console.log(err));
 
