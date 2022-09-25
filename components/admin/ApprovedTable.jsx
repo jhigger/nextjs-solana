@@ -52,7 +52,7 @@ function LinkInput({ address, link, handleRefresh }) {
 				handleRefresh();
 			})
 			.catch((err) => console.log(err))
-			.finally(setLoading(false));
+			.finally(() => setLoading(false));
 	};
 
 	return (
