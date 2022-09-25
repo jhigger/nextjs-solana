@@ -46,6 +46,7 @@ const Admin = () => {
 		return (
 			<>
 				<Head>
+					<meta name="robots" content="noindex,nofollow" />
 					<title>Admin Dashboard</title>
 				</Head>
 				<Flex as="main" minH="100vh" justify="center">
