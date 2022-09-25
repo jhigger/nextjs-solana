@@ -17,7 +17,7 @@ import {
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 
-function RadioCard(props) {
+const RadioCard = (props) => {
 	const { getInputProps, getCheckboxProps } = useRadio(props);
 
 	const input = getInputProps();
@@ -47,7 +47,40 @@ function RadioCard(props) {
 			</Box>
 		</Box>
 	);
-}
+};
+
+const PaymentPlans = ({ control, register }) => {
+	const options = ['Basic', 'Premium', 'Pixel', '1/1 Artist'];
+
+	const { field } = useController({
+		name: 'paymentPlan',
+		defaultValue: options[0],
+		control,
+		rules: { required: 'Payment is required' }
+	});
+
+	const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
+
+	return (
+		<>
+			<FormLabel htmlFor="paymentPlan">Payment Plan</FormLabel>
+			<SimpleGrid columns={[1, 2]} spacing={4} {...getRootProps()}>
+				{options.map((value) => {
+					return (
+						<RadioCard
+							key={value}
+							{...getRadioProps({ value })}
+							type="radio"
+							register={register}
+						>
+							{value}
+						</RadioCard>
+					);
+				})}
+			</SimpleGrid>
+		</>
+	);
+};
 
 const Form = ({ publicKey, refresh }) => {
 	const {
@@ -79,23 +112,11 @@ const Form = ({ publicKey, refresh }) => {
 			.then(() => {
 				showToast();
 				refresh();
+				reset();
 			})
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
-
-		reset();
 	}
-
-	const options = ['basic', 'premium', 'pixel', '1/1 artist'];
-
-	const { field } = useController({
-		name: 'paymentPlan',
-		defaultValue: 'basic',
-		control,
-		rules: { required: 'Payment is required' }
-	});
-
-	const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
 	return (
 		<Flex
@@ -196,27 +217,10 @@ const Form = ({ publicKey, refresh }) => {
 						</FormControl>
 
 						<FormControl isInvalid={errors.paymentPlan} isRequired>
-							<FormLabel htmlFor="paymentPlan">
-								Payment Plan
-							</FormLabel>
-							<SimpleGrid
-								columns={[1, 2]}
-								spacing={4}
-								{...getRootProps()}
-							>
-								{options.map((value) => {
-									return (
-										<RadioCard
-											key={value}
-											{...getRadioProps({ value })}
-											type="radio"
-											register={register}
-										>
-											{value}
-										</RadioCard>
-									);
-								})}
-							</SimpleGrid>
+							<PaymentPlans
+								control={control}
+								register={register}
+							/>
 							<FormErrorMessage>
 								{errors.paymentPlan &&
 									errors.paymentPlan.message}
