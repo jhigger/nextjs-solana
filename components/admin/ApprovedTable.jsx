@@ -109,7 +109,7 @@ const ApprovedTable = ({ approved, handleRefresh }) => {
 						<Tr>
 							<Th>Community Name</Th>
 							<Th>Submitted By</Th>
-							<Th textAlign="center">Link</Th>
+							<Th textAlign="center">Bot Link</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
