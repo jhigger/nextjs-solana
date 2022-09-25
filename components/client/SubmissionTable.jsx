@@ -23,7 +23,6 @@ import {
 	Td,
 	Text,
 	Th,
-	Thead,
 	Tr,
 	useColorModeValue
 } from '@chakra-ui/react';
@@ -44,6 +43,69 @@ const Pill = ({ status }) => {
 			<TagLeftIcon boxSize={4} as={variant[status]?.icon} />
 			<TagLabel>{status}</TagLabel>
 		</Tag>
+	);
+};
+
+const VerticalTable = ({ submission }) => {
+	return (
+		<TableContainer w="full" h="full" overflowY>
+			<Table>
+				<Tbody>
+					<Tr>
+						<Th>Your Discord ID</Th>
+						<Td>{submission?.discordId}</Td>
+					</Tr>
+					<Tr>
+						<Th>Community Name</Th>
+						<Td>{submission?.communityName}</Td>
+					</Tr>
+					<Tr>
+						<Th>Discord Server URL</Th>
+						<Td>
+							<Link
+								href={`//${submission?.discordServerUrl}`}
+								isExternal
+							>
+								{submission?.discordServerUrl}
+							</Link>
+						</Td>
+					</Tr>
+					<Tr>
+						<Th>Twitter URL</Th>
+						<Td>
+							<Link
+								href={`//${submission?.twitterUrl}`}
+								isExternal
+							>
+								{submission?.twitterUrl}
+							</Link>
+						</Td>
+					</Tr>
+					<Tr>
+						<Th>Services</Th>
+						<Td>{submission?.service}</Td>
+					</Tr>
+					<Tr>
+						<Th>Status</Th>
+						<Td>
+							<Pill status={submission?.status?.name} />
+						</Td>
+					</Tr>
+				</Tbody>
+				<TableCaption>
+					{submission?.link && (
+						<>
+							<Text as="span" pr={2} color="GrayText">
+								Bot Link:
+							</Text>
+							<Link href={`//${submission?.link}`} isExternal>
+								{submission?.link} <ExternalLinkIcon mx="2px" />
+							</Link>
+						</>
+					)}
+				</TableCaption>
+			</Table>
+		</TableContainer>
 	);
 };
 
@@ -72,66 +134,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 					<Spinner alignSelf="center" />
 				</Center>
 			) : (
-				<TableContainer w="full" h="full" overflowY>
-					<Table variant="striped" colorScheme="gray">
-						<Thead>
-							<Tr>
-								<Th>Discord ID</Th>
-								<Th>Community Name</Th>
-								<Th>Discord URL</Th>
-								<Th>Twitter URL</Th>
-								<Th>Payment Plan</Th>
-								<Th textAlign="center">Status</Th>
-							</Tr>
-						</Thead>
-						<Tbody>
-							<Tr>
-								<Td>{submission?.discordId}</Td>
-								<Td>{submission?.communityName}</Td>
-								<Td>
-									<Link
-										href={`//${submission?.discordUrl}`}
-										isExternal
-									>
-										{submission?.discordUrl}
-									</Link>
-								</Td>
-								<Td>
-									<Link
-										href={`//${submission?.twitterUrl}`}
-										isExternal
-									>
-										{submission?.twitterUrl}
-									</Link>
-								</Td>
-								<Td>{submission?.paymentPlan}</Td>
-								<Td>
-									<Center>
-										<Pill
-											status={submission?.status?.name}
-										/>
-									</Center>
-								</Td>
-							</Tr>
-						</Tbody>
-						<TableCaption>
-							{submission?.link && (
-								<>
-									<Text as="span" pr={2} color="GrayText">
-										Bot Link:
-									</Text>
-									<Link
-										href={`//${submission?.link}`}
-										isExternal
-									>
-										{submission?.link}{' '}
-										<ExternalLinkIcon mx="2px" />
-									</Link>
-								</>
-							)}
-						</TableCaption>
-					</Table>
-				</TableContainer>
+				<VerticalTable submission={submission} />
 			)}
 		</Stack>
 	);

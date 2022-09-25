@@ -49,22 +49,26 @@ const RadioCard = (props) => {
 	);
 };
 
-const PaymentPlans = ({ control, register }) => {
-	const options = ['Basic', 'Premium', 'Pixel', '1/1 Artist'];
+const Services = ({ name, control, register }) => {
+	const options = ['Engagement Bot'];
 
 	const { field } = useController({
-		name: 'paymentPlan',
+		name,
 		defaultValue: options[0],
 		control,
-		rules: { required: 'Payment is required' }
+		rules: { required: 'Services is required' }
 	});
 
 	const { getRootProps, getRadioProps } = useRadioGroup({ ...field });
 
 	return (
 		<>
-			<FormLabel htmlFor="paymentPlan">Payment Plan</FormLabel>
-			<SimpleGrid columns={[1, 2]} spacing={4} {...getRootProps()}>
+			<FormLabel htmlFor={name}>Services</FormLabel>
+			<SimpleGrid
+				columns={[1, options.length]}
+				spacing={4}
+				{...getRootProps()}
+			>
 				{options.map((value) => {
 					return (
 						<RadioCard
@@ -141,7 +145,7 @@ const Form = ({ publicKey, refresh }) => {
 
 						<FormControl isInvalid={errors.discordId} isRequired>
 							<FormLabel htmlFor="discordId">
-								Discord ID
+								Your Discord ID
 							</FormLabel>
 							<Input
 								id="discordId"
@@ -182,20 +186,24 @@ const Form = ({ publicKey, refresh }) => {
 							</FormErrorMessage>
 						</FormControl>
 
-						<FormControl isInvalid={errors.discordUrl} isRequired>
-							<FormLabel htmlFor="discordUrl">
-								Discord URL
+						<FormControl
+							isInvalid={errors.discordServerUrl}
+							isRequired
+						>
+							<FormLabel htmlFor="discordServerUrl">
+								Discord Server URL
 							</FormLabel>
 							<Input
-								id="discordUrl"
+								id="discordServerUrl"
 								variant="filled"
 								type="text"
-								{...register('discordUrl', {
+								{...register('discordServerUrl', {
 									required: 'This is required'
 								})}
 							/>
 							<FormErrorMessage>
-								{errors.discordUrl && errors.discordUrl.message}
+								{errors.discordServerUrl &&
+									errors.discordServerUrl.message}
 							</FormErrorMessage>
 						</FormControl>
 
@@ -216,14 +224,14 @@ const Form = ({ publicKey, refresh }) => {
 							</FormErrorMessage>
 						</FormControl>
 
-						<FormControl isInvalid={errors.paymentPlan} isRequired>
-							<PaymentPlans
+						<FormControl isInvalid={errors.service} isRequired>
+							<Services
+								name={'service'}
 								control={control}
 								register={register}
 							/>
 							<FormErrorMessage>
-								{errors.paymentPlan &&
-									errors.paymentPlan.message}
+								{errors.service && errors.service.message}
 							</FormErrorMessage>
 						</FormControl>
 

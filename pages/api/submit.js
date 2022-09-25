@@ -8,26 +8,27 @@ export default async (req, res) => {
 				address,
 				discordId,
 				communityName,
-				discordUrl,
+				discordServerUrl,
 				twitterUrl,
-				paymentPlan
+				service
 			} = req.body;
 			await prisma.submission.create({
 				data: {
 					address,
 					discordId,
 					communityName,
-					discordUrl,
+					discordServerUrl,
 					twitterUrl,
-					paymentPlan
+					service
 				}
 			});
-			res.status(200).json({message: 'Submitted'});
+			res.status(200).json({ message: 'Submitted' });
 		} else {
 			// Handle any other HTTP method
-			res.status(200).json({name: 'Hello, world!'});
+			res.status(200).json({ name: 'Hello, world!' });
 		}
 	} catch (error) {
+		console.log(error);
 		res.status(500).json(error);
 	}
 };
