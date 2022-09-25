@@ -21,6 +21,7 @@ import {
 	TagLeftIcon,
 	Tbody,
 	Td,
+	Text,
 	Th,
 	Thead,
 	Tr,
@@ -115,10 +116,18 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						</Tbody>
 						<TableCaption>
 							{submission?.link && (
-								<Link href={`//${submission?.link}`} isExternal>
-									{submission?.link}{' '}
-									<ExternalLinkIcon mx="2px" />
-								</Link>
+								<>
+									<Text as="span" pr={2} color="GrayText">
+										Bot Link:
+									</Text>
+									<Link
+										href={`//${submission?.link}`}
+										isExternal
+									>
+										{submission?.link}{' '}
+										<ExternalLinkIcon mx="2px" />
+									</Link>
+								</>
 							)}
 						</TableCaption>
 					</Table>
