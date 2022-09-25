@@ -14,6 +14,7 @@ import {
 	useRadioGroup,
 	useToast
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 
 function RadioCard(props) {
@@ -52,14 +53,16 @@ const Form = ({ publicKey, refresh }) => {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors, isSubmitting },
+		formState: { errors },
 		reset,
 		control
 	} = useForm();
 
 	const toast = useToast();
+	const [loading, setLoading] = useState(false);
 
 	function onSubmit(values) {
+		setLoading(true);
 		const showToast = () => {
 			return toast({
 				title: `Form Submitted`,
@@ -77,7 +80,8 @@ const Form = ({ publicKey, refresh }) => {
 				showToast();
 				refresh();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(() => setLoading(false));
 
 		reset();
 	}
@@ -223,7 +227,7 @@ const Form = ({ publicKey, refresh }) => {
 							bg="purple.600"
 							color="purple.100"
 							_hover={{ bg: 'purple.500' }}
-							isLoading={isSubmitting}
+							isLoading={loading}
 							type="submit"
 						>
 							Submit
