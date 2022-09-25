@@ -85,17 +85,31 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						</Thead>
 						<Tbody>
 							<Tr>
-								<Td>{submission?.discordId}</Td>
+								<Td>
+									<Link
+										href={`//discordapp.com/users/${submission?.discordId}`}
+										isExternal
+									>
+										{submission?.discordId}
+									</Link>
+								</Td>
 								<Td>{submission?.communityName}</Td>
 								<Td>
 									<Link
-										href={`${submission?.discordUrl ?? ''}`}
+										href={`//${submission?.discordUrl}`}
 										isExternal
 									>
 										{submission?.discordUrl}
 									</Link>
 								</Td>
-								<Td>{submission?.twitterUrl}</Td>
+								<Td>
+									<Link
+										href={`//${submission?.twitterUrl}`}
+										isExternal
+									>
+										{submission?.twitterUrl}
+									</Link>
+								</Td>
 								<Td>{submission?.paymentPlan}</Td>
 								<Td>
 									<Center>
@@ -108,7 +122,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						</Tbody>
 						<TableCaption>
 							{submission?.link && (
-								<Link href={submission?.link} isExternal>
+								<Link href={`//${submission?.link}`} isExternal>
 									{submission?.link}{' '}
 									<ExternalLinkIcon mx="2px" />
 								</Link>
