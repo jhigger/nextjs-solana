@@ -24,7 +24,7 @@ const RadioCard = (props) => {
 	const checkbox = getCheckboxProps();
 
 	return (
-		<Box as="label" isDisabled={props.isDisabled}>
+		<Box as="label" isdisabled={props.isdisabled}>
 			<Input {...input} />
 			<Box
 				{...checkbox}
@@ -89,7 +89,7 @@ const Services = ({ name, control, register }) => {
 							{...getRadioProps({ value: name })}
 							type="radio"
 							register={register}
-							isDisabled={disabled}
+							isdisabled={disabled ? 'true' : undefined}
 						>
 							{name}
 							{disabled && <Box>(coming soon)</Box>}
