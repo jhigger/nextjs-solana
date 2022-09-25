@@ -24,7 +24,7 @@ const RadioCard = (props) => {
 	const checkbox = getCheckboxProps();
 
 	return (
-		<Box as="label">
+		<Box as="label" isDisabled={props.isDisabled}>
 			<Input {...input} />
 			<Box
 				{...checkbox}
@@ -50,11 +50,24 @@ const RadioCard = (props) => {
 };
 
 const Services = ({ name, control, register }) => {
-	const options = ['Engagement Bot'];
+	const options = [
+		{
+			name: 'Engagement Bot',
+			disabled: false
+		},
+		{
+			name: 'Security Bot',
+			disabled: true
+		},
+		{
+			name: 'NFT Tools',
+			disabled: true
+		}
+	];
 
 	const { field } = useController({
 		name,
-		defaultValue: options[0],
+		defaultValue: options[0].name,
 		control,
 		rules: { required: 'Services is required' }
 	});
@@ -69,15 +82,17 @@ const Services = ({ name, control, register }) => {
 				spacing={4}
 				{...getRootProps()}
 			>
-				{options.map((value) => {
+				{options.map(({ name, disabled }) => {
 					return (
 						<RadioCard
-							key={value}
-							{...getRadioProps({ value })}
+							key={name}
+							{...getRadioProps({ value: name })}
 							type="radio"
 							register={register}
+							isDisabled={disabled}
 						>
-							{value}
+							{name}
+							{disabled && <Box>(coming soon)</Box>}
 						</RadioCard>
 					);
 				})}
