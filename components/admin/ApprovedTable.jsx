@@ -48,11 +48,11 @@ function LinkInput({ address, link, handleRefresh }) {
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then((data) => {
-				setLoading(false);
 				showToast();
 				handleRefresh();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(setLoading(false));
 	};
 
 	return (
