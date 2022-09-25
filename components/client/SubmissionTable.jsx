@@ -85,14 +85,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						</Thead>
 						<Tbody>
 							<Tr>
-								<Td>
-									<Link
-										href={`//discordapp.com/users/${submission?.discordId}`}
-										isExternal
-									>
-										{submission?.discordId}
-									</Link>
-								</Td>
+								<Td>{submission?.discordId}</Td>
 								<Td>{submission?.communityName}</Td>
 								<Td>
 									<Link
