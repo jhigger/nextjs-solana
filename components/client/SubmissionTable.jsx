@@ -57,6 +57,17 @@ const VerticalTable = ({ submission }) => {
 							<Pill status={submission?.status?.name} />
 						</Td>
 					</Tr>
+					{submission?.link && (
+						<Tr>
+							<Th borderBottomColor="green.500">Bot Link:</Th>
+							<Td borderBottomColor="green.500">
+								<Link href={`//${submission?.link}`} isExternal>
+									{submission?.link}{' '}
+									<ExternalLinkIcon mx="2px" />
+								</Link>
+							</Td>
+						</Tr>
+					)}
 					<Tr>
 						<Th>Your Discord ID</Th>
 						<Td>{submission?.discordId}</Td>
@@ -88,21 +99,12 @@ const VerticalTable = ({ submission }) => {
 						</Td>
 					</Tr>
 					<Tr>
-						<Th>Services</Th>
+						<Th>Service</Th>
 						<Td>{submission?.service}</Td>
 					</Tr>
 				</Tbody>
 				<TableCaption>
-					{submission?.link && (
-						<>
-							<Text as="span" pr={2} color="GrayText">
-								Bot Link:
-							</Text>
-							<Link href={`//${submission?.link}`} isExternal>
-								{submission?.link} <ExternalLinkIcon mx="2px" />
-							</Link>
-						</>
-					)}
+					{/* TODO: Put reject reason here */}
 				</TableCaption>
 			</Table>
 		</TableContainer>
