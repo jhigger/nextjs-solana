@@ -5,8 +5,8 @@ export default (address) => {
 	const url = address ? `/api/submissions/${address}` : null;
 
 	const { data, isValidating, error, mutate } = useSWR(url, fetcher, {
-		// 5 minute interval
-		refreshInterval: 5 * 60 * 1000
+		refreshInterval: 5 * 60 * 1000, // 5 minute interval
+		revalidateOnFocus: false
 	});
 
 	return {
