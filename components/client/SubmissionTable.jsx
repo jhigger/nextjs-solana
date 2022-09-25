@@ -52,6 +52,12 @@ const VerticalTable = ({ submission }) => {
 			<Table>
 				<Tbody>
 					<Tr>
+						<Th>Status</Th>
+						<Td>
+							<Pill status={submission?.status?.name} />
+						</Td>
+					</Tr>
+					<Tr>
 						<Th>Your Discord ID</Th>
 						<Td>{submission?.discordId}</Td>
 					</Tr>
@@ -84,12 +90,6 @@ const VerticalTable = ({ submission }) => {
 					<Tr>
 						<Th>Services</Th>
 						<Td>{submission?.service}</Td>
-					</Tr>
-					<Tr>
-						<Th>Status</Th>
-						<Td>
-							<Pill status={submission?.status?.name} />
-						</Td>
 					</Tr>
 				</Tbody>
 				<TableCaption>
