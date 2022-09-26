@@ -13,6 +13,7 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Spinner,
 	Stack,
 	Table,
 	TableContainer,
@@ -24,10 +25,12 @@ import {
 	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import RejectReasonModal from './RejectReasonModal';
 
 const PendingTable = ({ pending, handleRefresh }) => {
 	const toast = useToast();
+	const [loading, setLoading] = useState(false);
 
 	const handleApprove = (address) => {
 		handleUpdate(address, 2);
@@ -38,6 +41,7 @@ const PendingTable = ({ pending, handleRefresh }) => {
 	};
 
 	const handleUpdate = (address, statusId, rejectReason = '') => {
+		setLoading(true);
 		const showToast = () => {
 			return toast({
 				title: statusId === 2 ? 'Approved' : 'Rejected',
@@ -55,7 +59,10 @@ const PendingTable = ({ pending, handleRefresh }) => {
 				showToast();
 				handleRefresh();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(() => {
+				setLoading(false);
+			});
 	};
 
 	return (
@@ -98,7 +105,13 @@ const PendingTable = ({ pending, handleRefresh }) => {
 												<MenuButton
 													as={IconButton}
 													aria-label="Options"
-													icon={<HamburgerIcon />}
+													icon={
+														loading ? (
+															<Spinner size="sm" />
+														) : (
+															<HamburgerIcon />
+														)
+													}
 													variant="ghost"
 												/>
 											</Center>
