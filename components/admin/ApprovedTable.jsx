@@ -1,11 +1,13 @@
 import { EditIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
+	Button,
 	Flex,
 	Heading,
 	IconButton,
 	Input,
 	InputGroup,
 	InputRightElement,
+	Link,
 	Spinner,
 	Stack,
 	Table,
@@ -20,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
+import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 
 function LinkInput({ address, link, handleRefresh }) {
 	const { handleSubmit, control } = useForm();
@@ -107,8 +110,11 @@ const ApprovedTable = ({ approved, handleRefresh }) => {
 				<Table variant="striped" colorScheme="gray">
 					<Thead>
 						<Tr>
+							<Th>Discord ID</Th>
 							<Th>Community Name</Th>
-							<Th>Submitted By</Th>
+							<Th>Discord Server</Th>
+							<Th>Twitter </Th>
+							<Th>Service</Th>
 							<Th textAlign="center">Bot Link</Th>
 						</Tr>
 					</Thead>
@@ -116,8 +122,43 @@ const ApprovedTable = ({ approved, handleRefresh }) => {
 						{approved.map((row) => {
 							return (
 								<Tr key={row.address}>
+									<Td>
+										<Button
+											rightIcon={<FaCopy />}
+											variant="link"
+											onClick={() =>
+												handleCopy(row?.discordId)
+											}
+										>
+											{row?.discordId}
+										</Button>
+									</Td>
 									<Td>{row?.communityName}</Td>
-									<Td>{row?.discordId}</Td>
+									<Td>
+										<Link
+											href={`//${row?.discordServerUrl}`}
+											isExternal
+										>
+											<IconButton
+												aria-label="Discord server URL"
+												icon={<FaDiscord />}
+												variant="ghost"
+											/>
+										</Link>
+									</Td>
+									<Td>
+										<Link
+											href={`//${row?.twitterUrl}`}
+											isExternal
+										>
+											<IconButton
+												aria-label="Twitter URL"
+												icon={<FaTwitter />}
+												variant="ghost"
+											/>
+										</Link>
+									</Td>
+									<Td>{row?.service}</Td>
 									<Td>
 										<LinkInput
 											address={row.address}
