@@ -103,9 +103,15 @@ const VerticalTable = ({ submission }) => {
 						<Td>{submission?.service}</Td>
 					</Tr>
 				</Tbody>
-				<TableCaption>
-					{/* TODO: Put reject reason here */}
-				</TableCaption>
+				{submission?.status?.name === 'Pending' && (
+					<TableCaption>
+						<Text color="Highlight">
+							Please allow us 24 to 48 hours to review.
+							<br /> Join our Discord if you'd like to receive a
+							quicker response.
+						</Text>
+					</TableCaption>
+				)}
 			</Table>
 		</TableContainer>
 	);

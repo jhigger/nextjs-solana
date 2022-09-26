@@ -117,7 +117,7 @@ const Form = ({ publicKey, refresh }) => {
 		setLoading(true);
 		const showToast = () => {
 			return toast({
-				title: `Form Submitted`,
+				title: `Ape Application has been submitted!`,
 				status: 'success',
 				isClosable: true
 			});
