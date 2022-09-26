@@ -37,7 +37,7 @@ const RejectReasonModal = ({ icon, handleReject, address }) => {
 	return (
 		<>
 			<MenuItem icon={icon} onClick={onOpen}>
-				Open Modal
+				Reject
 			</MenuItem>
 			<Modal
 				initialFocusRef={initialRef}
