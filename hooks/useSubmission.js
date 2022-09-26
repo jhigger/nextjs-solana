@@ -11,7 +11,7 @@ export default (address) => {
 
 	return {
 		submission: data,
-		isLoading: (!data && !error) || isValidating,
+		isLoading: isValidating,
 		isError: error,
 		mutate
 	};

@@ -154,7 +154,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 			</Flex>
 			{isLoading ? (
 				<Center>
-					<Spinner alignSelf="center" />
+					<Spinner />
 				</Center>
 			) : (
 				<VerticalTable submission={submission} />

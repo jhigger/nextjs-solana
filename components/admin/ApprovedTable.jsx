@@ -1,6 +1,7 @@
 import { EditIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
 	Button,
+	Center,
 	Flex,
 	Heading,
 	IconButton,
@@ -24,7 +25,7 @@ import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 
-function LinkInput({ address, link, isLoading, handleRefresh }) {
+const LinkInput = ({ address, link, handleRefresh }) => {
 	const { handleSubmit, control } = useForm();
 	const [loading, setLoading] = useState(false);
 	const toast = useToast();
@@ -84,9 +85,80 @@ function LinkInput({ address, link, isLoading, handleRefresh }) {
 			</InputGroup>
 		</form>
 	);
-}
+};
 
-const ApprovedTable = ({ approved, handleRefresh }) => {
+const Approved = ({ approved }) => {
+	return (
+		<TableContainer w="full" h="full" overflowY>
+			<Table variant="striped" colorScheme="gray">
+				<Thead>
+					<Tr>
+						<Th>Discord ID</Th>
+						<Th>Community Name</Th>
+						<Th>Discord Server</Th>
+						<Th>Twitter </Th>
+						<Th>Service</Th>
+						<Th textAlign="center">Bot Link</Th>
+					</Tr>
+				</Thead>
+				<Tbody>
+					{approved.map((row) => {
+						return (
+							<Tr key={row.address}>
+								<Td>
+									<Button
+										rightIcon={<FaCopy />}
+										variant="link"
+										onClick={() =>
+											handleCopy(row?.discordId)
+										}
+									>
+										{row?.discordId}
+									</Button>
+								</Td>
+								<Td>{row?.communityName}</Td>
+								<Td>
+									<Link
+										href={`//${row?.discordServerUrl}`}
+										isExternal
+									>
+										<IconButton
+											aria-label="Discord server URL"
+											icon={<FaDiscord />}
+											variant="ghost"
+										/>
+									</Link>
+								</Td>
+								<Td>
+									<Link
+										href={`//${row?.twitterUrl}`}
+										isExternal
+									>
+										<IconButton
+											aria-label="Twitter URL"
+											icon={<FaTwitter />}
+											variant="ghost"
+										/>
+									</Link>
+								</Td>
+								<Td>{row?.service}</Td>
+								<Td>
+									<LinkInput
+										address={row.address}
+										link={row?.link}
+										handleRefresh={handleRefresh}
+									/>
+								</Td>
+							</Tr>
+						);
+					})}
+				</Tbody>
+			</Table>
+		</TableContainer>
+	);
+};
+
+const ApprovedTable = ({ approved, isLoading, handleRefresh }) => {
 	const toast = useToast();
 
 	const handleCopy = (id) => {
@@ -118,77 +190,12 @@ const ApprovedTable = ({ approved, handleRefresh }) => {
 				/>
 			</Flex>
 
-			{isLoading ? (
+			{!approved || isLoading ? (
 				<Center>
-					<Spinner alignSelf="center" />
+					<Spinner />
 				</Center>
 			) : (
-				<TableContainer w="full" h="full" overflowY>
-					<Table variant="striped" colorScheme="gray">
-						<Thead>
-							<Tr>
-								<Th>Discord ID</Th>
-								<Th>Community Name</Th>
-								<Th>Discord Server</Th>
-								<Th>Twitter </Th>
-								<Th>Service</Th>
-								<Th textAlign="center">Bot Link</Th>
-							</Tr>
-						</Thead>
-						<Tbody>
-							{approved.map((row) => {
-								return (
-									<Tr key={row.address}>
-										<Td>
-											<Button
-												rightIcon={<FaCopy />}
-												variant="link"
-												onClick={() =>
-													handleCopy(row?.discordId)
-												}
-											>
-												{row?.discordId}
-											</Button>
-										</Td>
-										<Td>{row?.communityName}</Td>
-										<Td>
-											<Link
-												href={`//${row?.discordServerUrl}`}
-												isExternal
-											>
-												<IconButton
-													aria-label="Discord server URL"
-													icon={<FaDiscord />}
-													variant="ghost"
-												/>
-											</Link>
-										</Td>
-										<Td>
-											<Link
-												href={`//${row?.twitterUrl}`}
-												isExternal
-											>
-												<IconButton
-													aria-label="Twitter URL"
-													icon={<FaTwitter />}
-													variant="ghost"
-												/>
-											</Link>
-										</Td>
-										<Td>{row?.service}</Td>
-										<Td>
-											<LinkInput
-												address={row.address}
-												link={row?.link}
-												handleRefresh={handleRefresh}
-											/>
-										</Td>
-									</Tr>
-								);
-							})}
-						</Tbody>
-					</Table>
-				</TableContainer>
+				<Approved approved={approved} />
 			)}
 		</Stack>
 	);
