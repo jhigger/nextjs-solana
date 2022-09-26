@@ -28,7 +28,7 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { FaDiscord, FaTwitter, FaCopy } from 'react-icons/fa';
+import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 import RejectReasonModal from './RejectReasonModal';
 
 const PendingTable = ({ pending, handleRefresh }) => {
@@ -43,6 +43,7 @@ const PendingTable = ({ pending, handleRefresh }) => {
 			isClosable: true
 		});
 	};
+
 	const handleApprove = (address) => {
 		handleUpdate(address, 2);
 	};
