@@ -2,6 +2,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Button,
+	Container,
 	Flex,
 	IconButton,
 	Link,
@@ -10,22 +11,34 @@ import {
 	useColorModeValue
 } from '@chakra-ui/react';
 import { signOut, useSession } from 'next-auth/react';
-import { Link as NextLink } from 'next/link';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import logo from '../assets/logo.png';
 
-const NavLink = ({ children }) => (
-	<Link
-		as={NextLink}
-		px={2}
-		py={1}
-		rounded={'md'}
-		_hover={{
-			textDecoration: 'none',
-			bg: useColorModeValue('gray.200', 'gray.700')
-		}}
-		href={'#'}
-	>
-		{children}
-	</Link>
+const NavLink = ({ href, children, ...rest }) => (
+	<NextLink href={href.toLowerCase()} passHref>
+		<Link
+			as={Button}
+			colorscheme="gray"
+			bg={bg}
+			color="white"
+			_hover={{
+				textDecoration: 'none',
+				bg: 'gray.500'
+			}}
+			{...rest}
+		>
+			{children}
+		</Link>
+	</NextLink>
+);
+
+const Logo = () => (
+	<NextLink href="/" passHref>
+		<Link filter={useColorModeValue('invert(100%)')}>
+			<Image src={logo} alt="Logo" width="163px" height="40px" />
+		</Link>
+	</NextLink>
 );
 
 export default function Nav() {
@@ -33,21 +46,19 @@ export default function Nav() {
 	const { status } = useSession();
 
 	return (
-		<>
-			<Box
-				shadow="md"
-				bg={useColorModeValue('gray.50', 'gray.900')}
-				borderBottomWidth="1px"
-				px={4}
-			>
+		<Box
+			shadow="md"
+			bg={useColorModeValue('gray.50', 'gray.900')}
+			borderBottomWidth="1px"
+			px={4}
+		>
+			<Container maxW="container.xl">
 				<Flex
 					h={16}
 					alignItems={'center'}
 					justifyContent={'space-between'}
 				>
-					<Link as={NextLink} href="/">
-						<Box>Logo</Box>
-					</Link>
+					<Logo />
 					<Flex alignItems={'center'}>
 						<Stack direction={'row'} spacing={7}>
 							<IconButton
@@ -66,14 +77,15 @@ export default function Nav() {
 									onClick={() => {
 										signOut();
 									}}
+									variant="outline"
 								>
-									Logout
+									Admin: Logout
 								</Button>
 							)}
 						</Stack>
 					</Flex>
 				</Flex>
-			</Box>
-		</>
+			</Container>
+		</Box>
 	);
 }
