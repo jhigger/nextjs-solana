@@ -51,16 +51,14 @@ const Admin = () => {
 				</Head>
 				<Flex as="main" minH="100vh" justify="center">
 					<Container maxW="container.xl" py={4}>
-						<SimpleGrid columns={[1, 1, 1, 2]} spacing={4}>
-							<PendingTable
-								pending={pending}
-								handleRefresh={handleRefresh}
-							/>
-							<ApprovedTable
-								approved={approved}
-								handleRefresh={handleRefresh}
-							/>
-						</SimpleGrid>
+						<PendingTable
+							pending={pending}
+							handleRefresh={handleRefresh}
+						/>
+						<ApprovedTable
+							approved={approved}
+							handleRefresh={handleRefresh}
+						/>
 					</Container>
 				</Flex>
 			</>

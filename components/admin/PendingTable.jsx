@@ -5,10 +5,12 @@ import {
 	RepeatIcon
 } from '@chakra-ui/icons';
 import {
+	Button,
 	Center,
 	Flex,
 	Heading,
 	IconButton,
+	Link,
 	Menu,
 	MenuButton,
 	MenuItem,
@@ -26,12 +28,21 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { FaDiscord, FaTwitter, FaCopy } from 'react-icons/fa';
 import RejectReasonModal from './RejectReasonModal';
 
 const PendingTable = ({ pending, handleRefresh }) => {
 	const toast = useToast();
 	const [loading, setLoading] = useState(false);
 
+	const handleCopy = (id) => {
+		navigator.clipboard.writeText(id);
+		return toast({
+			title: 'Discord ID Copied',
+			status: 'info',
+			isClosable: true
+		});
+	};
 	const handleApprove = (address) => {
 		handleUpdate(address, 2);
 	};
@@ -88,8 +99,11 @@ const PendingTable = ({ pending, handleRefresh }) => {
 				<Table variant="striped" colorScheme="gray" size="md">
 					<Thead>
 						<Tr>
+							<Th>Discord ID</Th>
 							<Th>Community Name</Th>
-							<Th>Submitted By</Th>
+							<Th>Discord Server</Th>
+							<Th>Twitter </Th>
+							<Th>Service</Th>
 							<Th textAlign="center">Options</Th>
 						</Tr>
 					</Thead>
@@ -97,8 +111,43 @@ const PendingTable = ({ pending, handleRefresh }) => {
 						{pending.map((row) => {
 							return (
 								<Tr key={row.address}>
+									<Td>
+										<Button
+											rightIcon={<FaCopy />}
+											variant="link"
+											onClick={() =>
+												handleCopy(row?.discordId)
+											}
+										>
+											{row?.discordId}
+										</Button>
+									</Td>
 									<Td>{row?.communityName}</Td>
-									<Td>{row?.discordId}</Td>
+									<Td>
+										<Link
+											href={`//${row?.discordServerUrl}`}
+											isExternal
+										>
+											<IconButton
+												aria-label="Discord server URL"
+												icon={<FaDiscord />}
+												variant="ghost"
+											/>
+										</Link>
+									</Td>
+									<Td>
+										<Link
+											href={`//${row?.twitterUrl}`}
+											isExternal
+										>
+											<IconButton
+												aria-label="Twitter URL"
+												icon={<FaTwitter />}
+												variant="ghost"
+											/>
+										</Link>
+									</Td>
+									<Td>{row?.service}</Td>
 									<Td>
 										<Menu>
 											<Center>
