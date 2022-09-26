@@ -1,40 +1,21 @@
-import { Container, Flex, SimpleGrid } from '@chakra-ui/react';
+import { Container, Flex } from '@chakra-ui/react';
 import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ApprovedTable from '../components/admin/ApprovedTable';
 import PendingTable from '../components/admin/PendingTable';
+import useApproved from '../hooks/useApproved';
+import usePending from '../hooks/usePending';
 
 const Admin = () => {
 	const { status } = useSession();
-
-	const [pending, setPending] = useState([]);
-	const [approved, setApproved] = useState([]);
-
-	const [refresh, toggleRefresh] = useState(false);
+	const { pending, mutate: refreshPending } = usePending();
+	const { approved, mutate: refreshApproved } = useApproved();
 
 	const handleRefresh = () => {
-		toggleRefresh((prev) => !prev);
+		refreshPending();
+		refreshApproved();
 	};
-
-	const handleFetchPending = async () => {
-		const res = await fetch(`/api/submissions/status/1`);
-		const data = await res.json();
-		setPending(data);
-	};
-
-	const handleFetchApproved = async () => {
-		const res = await fetch(`/api/submissions/status/2`);
-		const data = await res.json();
-		setApproved(data);
-	};
-
-	useEffect(() => {
-		if (status === 'authenticated') {
-			handleFetchPending();
-			handleFetchApproved();
-		}
-	}, [refresh, status]);
 
 	useEffect(() => {
 		if (status === 'unauthenticated') {
@@ -51,14 +32,18 @@ const Admin = () => {
 				</Head>
 				<Flex as="main" minH="100vh" justify="center">
 					<Container maxW="container.xl" py={4}>
-						<PendingTable
-							pending={pending}
-							handleRefresh={handleRefresh}
-						/>
-						<ApprovedTable
-							approved={approved}
-							handleRefresh={handleRefresh}
-						/>
+						{pending && (
+							<PendingTable
+								pending={pending}
+								handleRefresh={handleRefresh}
+							/>
+						)}
+						{approved && (
+							<ApprovedTable
+								approved={approved}
+								handleRefresh={handleRefresh}
+							/>
+						)}
 					</Container>
 				</Flex>
 			</>
