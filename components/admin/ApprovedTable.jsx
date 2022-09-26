@@ -24,7 +24,7 @@ import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 
-function LinkInput({ address, link, handleRefresh }) {
+function LinkInput({ address, link, isLoading, handleRefresh }) {
 	const { handleSubmit, control } = useForm();
 	const [loading, setLoading] = useState(false);
 	const toast = useToast();
@@ -117,72 +117,79 @@ const ApprovedTable = ({ approved, handleRefresh }) => {
 					onClick={handleRefresh}
 				/>
 			</Flex>
-			<TableContainer w="full" h="full" overflowY>
-				<Table variant="striped" colorScheme="gray">
-					<Thead>
-						<Tr>
-							<Th>Discord ID</Th>
-							<Th>Community Name</Th>
-							<Th>Discord Server</Th>
-							<Th>Twitter </Th>
-							<Th>Service</Th>
-							<Th textAlign="center">Bot Link</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						{approved.map((row) => {
-							return (
-								<Tr key={row.address}>
-									<Td>
-										<Button
-											rightIcon={<FaCopy />}
-											variant="link"
-											onClick={() =>
-												handleCopy(row?.discordId)
-											}
-										>
-											{row?.discordId}
-										</Button>
-									</Td>
-									<Td>{row?.communityName}</Td>
-									<Td>
-										<Link
-											href={`//${row?.discordServerUrl}`}
-											isExternal
-										>
-											<IconButton
-												aria-label="Discord server URL"
-												icon={<FaDiscord />}
-												variant="ghost"
+
+			{isLoading ? (
+				<Center>
+					<Spinner alignSelf="center" />
+				</Center>
+			) : (
+				<TableContainer w="full" h="full" overflowY>
+					<Table variant="striped" colorScheme="gray">
+						<Thead>
+							<Tr>
+								<Th>Discord ID</Th>
+								<Th>Community Name</Th>
+								<Th>Discord Server</Th>
+								<Th>Twitter </Th>
+								<Th>Service</Th>
+								<Th textAlign="center">Bot Link</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							{approved.map((row) => {
+								return (
+									<Tr key={row.address}>
+										<Td>
+											<Button
+												rightIcon={<FaCopy />}
+												variant="link"
+												onClick={() =>
+													handleCopy(row?.discordId)
+												}
+											>
+												{row?.discordId}
+											</Button>
+										</Td>
+										<Td>{row?.communityName}</Td>
+										<Td>
+											<Link
+												href={`//${row?.discordServerUrl}`}
+												isExternal
+											>
+												<IconButton
+													aria-label="Discord server URL"
+													icon={<FaDiscord />}
+													variant="ghost"
+												/>
+											</Link>
+										</Td>
+										<Td>
+											<Link
+												href={`//${row?.twitterUrl}`}
+												isExternal
+											>
+												<IconButton
+													aria-label="Twitter URL"
+													icon={<FaTwitter />}
+													variant="ghost"
+												/>
+											</Link>
+										</Td>
+										<Td>{row?.service}</Td>
+										<Td>
+											<LinkInput
+												address={row.address}
+												link={row?.link}
+												handleRefresh={handleRefresh}
 											/>
-										</Link>
-									</Td>
-									<Td>
-										<Link
-											href={`//${row?.twitterUrl}`}
-											isExternal
-										>
-											<IconButton
-												aria-label="Twitter URL"
-												icon={<FaTwitter />}
-												variant="ghost"
-											/>
-										</Link>
-									</Td>
-									<Td>{row?.service}</Td>
-									<Td>
-										<LinkInput
-											address={row.address}
-											link={row?.link}
-											handleRefresh={handleRefresh}
-										/>
-									</Td>
-								</Tr>
-							);
-						})}
-					</Tbody>
-				</Table>
-			</TableContainer>
+										</Td>
+									</Tr>
+								);
+							})}
+						</Tbody>
+					</Table>
+				</TableContainer>
+			)}
 		</Stack>
 	);
 };

@@ -11,7 +11,7 @@ export default () => {
 
 	return {
 		approved: data,
-		isLoading: (!data && !error) || isValidating,
+		isLoading: !data,
 		isError: error,
 		mutate
 	};

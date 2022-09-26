@@ -9,8 +9,16 @@ import usePending from '../hooks/usePending';
 
 const Admin = () => {
 	const { status } = useSession();
-	const { pending, mutate: refreshPending } = usePending();
-	const { approved, mutate: refreshApproved } = useApproved();
+	const {
+		pending,
+		loading: loadingPending,
+		mutate: refreshPending
+	} = usePending();
+	const {
+		approved,
+		loading: loadingApproved,
+		mutate: refreshApproved
+	} = useApproved();
 
 	const handleRefresh = () => {
 		refreshPending();
@@ -32,18 +40,16 @@ const Admin = () => {
 				</Head>
 				<Flex as="main" minH="100vh" justify="center">
 					<Container maxW="container.xl" py={4}>
-						{pending && (
-							<PendingTable
-								pending={pending}
-								handleRefresh={handleRefresh}
-							/>
-						)}
-						{approved && (
-							<ApprovedTable
-								approved={approved}
-								handleRefresh={handleRefresh}
-							/>
-						)}
+						<PendingTable
+							pending={pending}
+							isLoading={loadingPending}
+							handleRefresh={handleRefresh}
+						/>
+						<ApprovedTable
+							approved={approved}
+							isLoading={loadingApproved}
+							handleRefresh={handleRefresh}
+						/>
 					</Container>
 				</Flex>
 			</>
