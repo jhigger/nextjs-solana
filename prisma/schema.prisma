@@ -27,6 +27,7 @@ model Submission {
   statusId         Int      @default(1) @map("status_id")
   status           Status   @relation(fields: [statusId], references: [id])
   link             String?  @default("")
+  rejectReason     String?  @default("") @map("reject_reason")
 
   @@index([address, statusId])
 }

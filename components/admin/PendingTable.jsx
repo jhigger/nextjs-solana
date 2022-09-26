@@ -24,6 +24,7 @@ import {
 	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
+import RejectReasonModal from './RejectReasonModal';
 
 const PendingTable = ({ pending, handleRefresh }) => {
 	const toast = useToast();
@@ -32,11 +33,11 @@ const PendingTable = ({ pending, handleRefresh }) => {
 		handleUpdate(address, 2);
 	};
 
-	const handleReject = (address) => {
-		handleUpdate(address, 3);
+	const handleReject = (address, rejectReason) => {
+		handleUpdate(address, 3, rejectReason);
 	};
 
-	const handleUpdate = (address, statusId) => {
+	const handleUpdate = (address, statusId, rejectReason = '') => {
 		const showToast = () => {
 			return toast({
 				title: statusId === 2 ? 'Approved' : 'Rejected',
@@ -47,7 +48,7 @@ const PendingTable = ({ pending, handleRefresh }) => {
 
 		fetch(`/api/submissions/${address}`, {
 			method: 'PUT',
-			body: JSON.stringify({ statusId }),
+			body: JSON.stringify({ statusId, rejectReason }),
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then(() => {
@@ -112,16 +113,11 @@ const PendingTable = ({ pending, handleRefresh }) => {
 												>
 													Approve
 												</MenuItem>
-												<MenuItem
+												<RejectReasonModal
 													icon={<CloseIcon />}
-													onClick={() =>
-														handleReject(
-															row.address
-														)
-													}
-												>
-													Reject
-												</MenuItem>
+													handleReject={handleReject}
+													address={row.address}
+												/>
 											</MenuList>
 										</Menu>
 									</Td>

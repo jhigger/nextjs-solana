@@ -46,6 +46,28 @@ const Pill = ({ status }) => {
 	);
 };
 
+const BotLink = ({ submission }) => {
+	return (
+		<Tr>
+			<Th borderBottomColor="green.500">Bot Link:</Th>
+			<Td borderBottomColor="green.500">
+				<Link href={`//${submission?.link}`} isExternal>
+					{submission?.link} <ExternalLinkIcon mx="2px" />
+				</Link>
+			</Td>
+		</Tr>
+	);
+};
+
+const RejectReason = ({ submission }) => {
+	return (
+		<Tr>
+			<Th borderBottomColor="red.500">Reason for rejection:</Th>
+			<Td borderBottomColor="red.500">{submission?.rejectReason}</Td>
+		</Tr>
+	);
+};
+
 const VerticalTable = ({ submission }) => {
 	return (
 		<TableContainer w="full" h="full" overflowY>
@@ -57,16 +79,9 @@ const VerticalTable = ({ submission }) => {
 							<Pill status={submission?.status?.name} />
 						</Td>
 					</Tr>
-					{submission?.link && (
-						<Tr>
-							<Th borderBottomColor="green.500">Bot Link:</Th>
-							<Td borderBottomColor="green.500">
-								<Link href={`//${submission?.link}`} isExternal>
-									{submission?.link}{' '}
-									<ExternalLinkIcon mx="2px" />
-								</Link>
-							</Td>
-						</Tr>
+					{submission?.link && <BotLink submission={submission} />}
+					{submission?.status?.name === 'Rejected' && (
+						<RejectReason submission={submission} />
 					)}
 					<Tr>
 						<Th>Your Discord ID</Th>
