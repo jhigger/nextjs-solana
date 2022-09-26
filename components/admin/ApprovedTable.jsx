@@ -87,6 +87,17 @@ function LinkInput({ address, link, handleRefresh }) {
 }
 
 const ApprovedTable = ({ approved, handleRefresh }) => {
+	const toast = useToast();
+
+	const handleCopy = (id) => {
+		navigator.clipboard.writeText(id);
+		return toast({
+			title: 'Discord ID Copied',
+			status: 'info',
+			isClosable: true
+		});
+	};
+
 	return (
 		<Stack
 			p={8}
