@@ -101,7 +101,7 @@ const Services = ({ name, control, register }) => {
 	);
 };
 
-const Form = ({ publicKey, refresh }) => {
+const Form = ({ publicKey, refresh, handleSignMessage }) => {
 	const {
 		handleSubmit,
 		register,
@@ -113,8 +113,9 @@ const Form = ({ publicKey, refresh }) => {
 	const toast = useToast();
 	const [loading, setLoading] = useState(false);
 
-	function onSubmit(values) {
+	const onSubmit = async (values) => {
 		setLoading(true);
+
 		const showToast = () => {
 			return toast({
 				title: `Ape Application has been submitted!`,
@@ -123,19 +124,32 @@ const Form = ({ publicKey, refresh }) => {
 			});
 		};
 
-		fetch(`/api/submit`, {
-			method: 'POST',
-			body: JSON.stringify(values),
-			headers: { 'Content-type': 'application/json; charset=UTF-8' }
-		})
-			.then(() => {
-				showToast();
-				refresh();
-				reset();
+		const res = await handleSignMessage();
+
+		if (res?.status === 200) {
+			fetch(`/api/submit`, {
+				method: 'POST',
+				body: JSON.stringify(values),
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8'
+				}
 			})
-			.catch((err) => console.log(err))
-			.finally(() => setLoading(false));
-	}
+				.then(() => {
+					showToast();
+					refresh();
+					reset();
+				})
+				.catch((err) => console.log(err))
+				.finally(() => setLoading(false));
+		} else {
+			setLoading(false);
+			return toast({
+				title: `Error verifying wallet, please try again`,
+				status: 'error',
+				isClosable: true
+			});
+		}
+	};
 
 	return (
 		<Flex
