@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import ApprovedTable from '../components/admin/ApprovedTable';
 import PendingTable from '../components/admin/PendingTable';
+import Sidebar from '../components/admin/Sidebar';
 import useApproved from '../hooks/useApproved';
 import usePending from '../hooks/usePending';
 
@@ -38,20 +39,21 @@ const Admin = () => {
 					<meta name="robots" content="noindex,nofollow" />
 					<title>Admin Dashboard</title>
 				</Head>
-				<Flex as="main" minH="100vh" justify="center">
-					<Container maxW="container.xl" py={4}>
+				<Sidebar
+					tabs={[
 						<PendingTable
 							pending={pending}
 							isLoading={loadingPending}
 							handleRefresh={handleRefresh}
-						/>
+						/>,
 						<ApprovedTable
 							approved={approved}
 							isLoading={loadingApproved}
 							handleRefresh={handleRefresh}
-						/>
-					</Container>
-				</Flex>
+						/>,
+						<></>
+					]}
+				/>
 			</>
 		);
 };
