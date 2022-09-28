@@ -13,12 +13,14 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const LoginPanel = () => {
+	const [loading, setLoading] = useState(false);
 	const {
 		handleSubmit,
 		register,
-		formState: { errors, isSubmitting },
+		formState: { errors },
 		reset
 	} = useForm();
 
@@ -26,6 +28,7 @@ const LoginPanel = () => {
 	const router = useRouter();
 
 	const onSubmit = (values) => {
+		setLoading(true);
 		const { username, password } = values;
 
 		signIn('credentials', {
@@ -57,6 +60,9 @@ const LoginPanel = () => {
 			})
 			.catch((error) => {
 				console.log(error);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -105,7 +111,7 @@ const LoginPanel = () => {
 
 					<Button
 						colorScheme="purple"
-						isLoading={isSubmitting}
+						isLoading={loading}
 						type="submit"
 					>
 						Login
