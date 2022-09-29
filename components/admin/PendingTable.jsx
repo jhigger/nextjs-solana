@@ -29,9 +29,11 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
+import useStatus from '../../hooks/useStatus';
 import RejectReasonModal from './RejectReasonModal';
 
-const PendingTable = ({ pending, isLoading, handleRefresh }) => {
+const PendingTable = () => {
+	const { data, isLoading, mutate: refresh } = useStatus(1);
 	const toast = useToast();
 	const [loading, setLoading] = useState(false);
 
@@ -69,7 +71,7 @@ const PendingTable = ({ pending, isLoading, handleRefresh }) => {
 		})
 			.then(() => {
 				showToast();
-				handleRefresh();
+				refresh();
 			})
 			.catch((err) => console.log(err))
 			.finally(() => {
@@ -93,10 +95,10 @@ const PendingTable = ({ pending, isLoading, handleRefresh }) => {
 				<IconButton
 					aria-label="Refresh"
 					icon={<RepeatIcon />}
-					onClick={handleRefresh}
+					onClick={refresh}
 				/>
 			</Flex>
-			{!pending || isLoading ? (
+			{!data || isLoading ? (
 				<Center>
 					<Spinner />
 				</Center>
@@ -114,7 +116,7 @@ const PendingTable = ({ pending, isLoading, handleRefresh }) => {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{pending.map((row) => {
+							{data.map((row) => {
 								return (
 									<Tr key={row.address}>
 										<Td>

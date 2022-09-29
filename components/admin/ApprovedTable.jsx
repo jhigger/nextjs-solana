@@ -24,8 +24,9 @@ import {
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
+import useStatus from '../../hooks/useStatus';
 
-const LinkInput = ({ address, link, handleRefresh }) => {
+const LinkInput = ({ address, link, refresh }) => {
 	const { handleSubmit, control } = useForm();
 	const [loading, setLoading] = useState(false);
 	const toast = useToast();
@@ -53,7 +54,7 @@ const LinkInput = ({ address, link, handleRefresh }) => {
 		})
 			.then((data) => {
 				showToast();
-				handleRefresh();
+				refresh();
 			})
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
@@ -87,7 +88,8 @@ const LinkInput = ({ address, link, handleRefresh }) => {
 	);
 };
 
-const ApprovedTable = ({ approved, isLoading, handleRefresh }) => {
+const ApprovedTable = () => {
+	const { data, isLoading, mutate: refresh } = useStatus(2);
 	const toast = useToast();
 
 	const handleCopy = (id) => {
@@ -115,11 +117,11 @@ const ApprovedTable = ({ approved, isLoading, handleRefresh }) => {
 				<IconButton
 					aria-label="Refresh"
 					icon={<RepeatIcon />}
-					onClick={handleRefresh}
+					onClick={refresh}
 				/>
 			</Flex>
 
-			{!approved || isLoading ? (
+			{!data || isLoading ? (
 				<Center>
 					<Spinner />
 				</Center>
@@ -137,7 +139,7 @@ const ApprovedTable = ({ approved, isLoading, handleRefresh }) => {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{approved.map((row) => {
+							{data.map((row) => {
 								return (
 									<Tr key={row.address}>
 										<Td>
@@ -181,7 +183,7 @@ const ApprovedTable = ({ approved, isLoading, handleRefresh }) => {
 											<LinkInput
 												address={row.address}
 												link={row?.link}
-												handleRefresh={handleRefresh}
+												refresh={refresh}
 											/>
 										</Td>
 									</Tr>
