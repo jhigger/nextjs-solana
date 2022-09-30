@@ -41,15 +41,15 @@ const PendingTable = () => {
 		});
 	};
 
-	const handleApprove = (address) => {
-		handleUpdate(address, 2);
+	const handleApprove = (address, botLink) => {
+		handleUpdate(address, 2, { botLink });
 	};
 
 	const handleReject = (address, rejectReason) => {
-		handleUpdate(address, 3, rejectReason);
+		handleUpdate(address, 3, { rejectReason });
 	};
 
-	const handleUpdate = (address, statusId, rejectReason = '') => {
+	const handleUpdate = (address, statusId, update = {}) => {
 		setLoading(true);
 		const showToast = () => {
 			return toast({
@@ -61,7 +61,7 @@ const PendingTable = () => {
 
 		fetch(`/api/submissions/${address}`, {
 			method: 'PUT',
-			body: JSON.stringify({ statusId, rejectReason }),
+			body: JSON.stringify({ statusId, ...update }),
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
 			.then(() => {
