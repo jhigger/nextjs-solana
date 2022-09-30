@@ -171,6 +171,11 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 	return (
 		<Card>
 			<Stack spacing={4}>
+				{submission?.status?.name !== 'Approved' && (
+					<Heading as="h2" size="md" align="center">
+						Your Submission
+					</Heading>
+				)}
 				<Flex justify="end">
 					<IconButton
 						aria-label="Refresh"
