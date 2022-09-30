@@ -1,4 +1,4 @@
-import { CheckIcon, SmallCloseIcon, TimeIcon } from '@chakra-ui/icons';
+import { CheckIcon, CloseIcon, TimeIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Button,
@@ -9,7 +9,6 @@ import {
 	Flex,
 	Icon,
 	IconButton,
-	Link,
 	Stack,
 	useColorModeValue,
 	useDisclosure
@@ -20,7 +19,7 @@ import { FiMenu } from 'react-icons/fi';
 const LinkItems = [
 	{ name: 'Pending', icon: TimeIcon },
 	{ name: 'Approved', icon: CheckIcon },
-	{ name: 'Rejected', icon: SmallCloseIcon }
+	{ name: 'Rejected', icon: CloseIcon }
 ];
 
 export default function Sidebar({ tabs }) {
