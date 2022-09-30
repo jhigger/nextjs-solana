@@ -12,10 +12,10 @@ export default async (req, res) => {
 			res.status(200).json(result);
 		} else if (req.method === 'PUT') {
 			const { address } = req.query;
-			const { statusId, link, rejectReason } = req.body;
+			const { statusId, botLink, rejectReason } = req.body;
 			const result = await prisma.submission.update({
 				where: { address },
-				data: { statusId, link, rejectReason, updatedAt: new Date() }
+				data: { statusId, botLink, rejectReason, updatedAt: new Date() }
 			});
 			res.status(200).json(result);
 		} else {

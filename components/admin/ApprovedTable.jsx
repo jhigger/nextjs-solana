@@ -26,14 +26,14 @@ import { useController, useForm } from 'react-hook-form';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 import useStatus from '../../hooks/useStatus';
 
-const LinkInput = ({ address, link, refresh }) => {
+const LinkInput = ({ address, botLink, refresh }) => {
 	const { handleSubmit, control } = useForm();
 	const [loading, setLoading] = useState(false);
 	const toast = useToast();
 
 	const { field } = useController({
-		name: 'link',
-		defaultValue: link,
+		name: 'botLink',
+		defaultValue: botLink,
 		control
 	});
 
@@ -64,7 +64,7 @@ const LinkInput = ({ address, link, refresh }) => {
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<InputGroup minW="48">
 				<Input
-					id="link"
+					id="botLink"
 					variant="flushed"
 					{...field}
 					type="text"
@@ -78,7 +78,7 @@ const LinkInput = ({ address, link, refresh }) => {
 							size="sm"
 							type="submit"
 							colorScheme="purple"
-							aria-label="Update link"
+							aria-label="Update bot link"
 							icon={<EditIcon />}
 						/>
 					)}
@@ -182,7 +182,7 @@ const ApprovedTable = () => {
 										<Td>
 											<LinkInput
 												address={row.address}
-												link={row?.link}
+												botLink={row?.botLink}
 												refresh={refresh}
 											/>
 										</Td>

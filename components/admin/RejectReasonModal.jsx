@@ -1,3 +1,4 @@
+import { CloseIcon } from '@chakra-ui/icons';
 import {
 	Button,
 	FormControl,
@@ -17,7 +18,7 @@ import {
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-const RejectReasonModal = ({ icon, handleReject, address }) => {
+const RejectReasonModal = ({ handleReject, address }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const initialRef = useRef(null);
 	const {
@@ -36,7 +37,7 @@ const RejectReasonModal = ({ icon, handleReject, address }) => {
 
 	return (
 		<>
-			<MenuItem icon={icon} onClick={onOpen}>
+			<MenuItem icon={<CloseIcon />} onClick={onOpen}>
 				Reject
 			</MenuItem>
 			<Modal
