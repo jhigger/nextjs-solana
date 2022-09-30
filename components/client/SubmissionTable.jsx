@@ -49,13 +49,13 @@ const Pill = ({ status }) => {
 	);
 };
 
-const BotLink = ({ submission }) => {
+const BotLink = ({ botLink }) => {
 	return (
 		<Tr>
 			<Th borderBottomColor="green.500">Bot Link:</Th>
 			<Td borderBottomColor="green.500">
-				<Link href={`//${submission?.link}`} isExternal>
-					{submission?.link} <ExternalLinkIcon mx="2px" />
+				<Link href={`//${botLink}`} isExternal>
+					{botLink} <ExternalLinkIcon mx="2px" />
 				</Link>
 			</Td>
 		</Tr>
@@ -101,7 +101,9 @@ const VerticalTable = ({ submission, refresh }) => {
 							<Pill status={submission?.status?.name} />
 						</Td>
 					</Tr>
-					{submission?.link && <BotLink submission={submission} />}
+					{submission?.botLink && (
+						<BotLink botLink={submission.botLink} />
+					)}
 					{submission?.status?.name === 'Rejected' && (
 						<RejectReason submission={submission} />
 					)}
@@ -142,10 +144,10 @@ const VerticalTable = ({ submission, refresh }) => {
 				</Tbody>
 				{submission?.status?.name === 'Pending' && (
 					<TableCaption>
-						<Text color="Highlight">
+						<Text color="white" fontSize="lg">
 							Please allow us 24 to 48 hours to review.
-							<br /> Join our Discord if you'd like to receive a
-							quicker response.
+							<br /> Join https://discord.gg/utilityape if you'd
+							like to receive a quicker response.
 						</Text>
 					</TableCaption>
 				)}
