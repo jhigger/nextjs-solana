@@ -9,12 +9,14 @@ import {
 	Flex,
 	Icon,
 	IconButton,
+	Spacer,
 	Stack,
 	useColorModeValue,
 	useDisclosure
 } from '@chakra-ui/react';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
-import { FiMenu } from 'react-icons/fi';
+import { FiLogOut, FiMenu } from 'react-icons/fi';
 
 const LinkItems = [
 	{ name: 'Pending', icon: TimeIcon },
@@ -31,9 +33,9 @@ export default function Sidebar({ tabs }) {
 	};
 
 	return (
-		<Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+		<>
 			<SidebarContent
-				onClose={() => onClose}
+				onClose={onClose}
 				display={{ base: 'none', md: 'block' }}
 				tab={tab}
 				handleTabChange={handleTabChange}
@@ -48,19 +50,20 @@ export default function Sidebar({ tabs }) {
 				size="full"
 			>
 				<DrawerContent>
-					<SidebarContent onClose={onClose} />
+					<SidebarContent
+						onClose={onClose}
+						handleTabChange={handleTabChange}
+					/>
 				</DrawerContent>
 			</Drawer>
 			{/* mobilenav */}
 			<MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
 			<Box ml={{ base: 0, md: 60 }} p="4">
-				<Flex as="main" minH="100vh" justify="center">
-					<Container maxW="container.xl" py={4}>
-						{tabs[tab]}
-					</Container>
-				</Flex>
+				<Container maxW="container.xl" py={4}>
+					{tabs[tab]}
+				</Container>
 			</Box>
-		</Box>
+		</>
 	);
 }
 
@@ -75,29 +78,33 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 			h="full"
 			{...rest}
 		>
-			<Flex
-				h="20"
-				alignItems="center"
-				mx="8"
-				justifyContent="space-between"
-			>
+			<Flex alignItems="center" m="8" justifyContent="space-between">
 				<CloseButton
 					display={{ base: 'flex', md: 'none' }}
 					onClick={onClose}
 				/>
 			</Flex>
-			<Stack spacing={4}>
-				{LinkItems.map((link, i) => (
-					<NavItem
-						key={link.name}
-						icon={link.icon}
-						onClick={() => handleTabChange(i)}
-						borderRight={tab === i ? '2px' : ''}
-					>
-						{link.name}
-					</NavItem>
-				))}
-			</Stack>
+			<Flex direction="column" h="calc(100vh - 165px)">
+				<Stack spacing={4}>
+					{LinkItems.map((link, i) => (
+						<NavItem
+							key={link.name}
+							icon={link.icon}
+							onClick={() => {
+								onClose();
+								handleTabChange(i);
+							}}
+							borderRight={tab === i ? '2px' : ''}
+						>
+							{link.name}
+						</NavItem>
+					))}
+				</Stack>
+				<Spacer />
+				<NavItem onClick={signOut} icon={FiLogOut}>
+					Logout
+				</NavItem>
+			</Flex>
 		</Box>
 	);
 };

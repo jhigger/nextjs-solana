@@ -10,7 +10,6 @@ import {
 	useColorMode,
 	useColorModeValue
 } from '@chakra-ui/react';
-import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import logo from '../assets/logo.png';
@@ -43,7 +42,6 @@ const Logo = () => (
 
 export default function Nav() {
 	const { colorMode, toggleColorMode } = useColorMode();
-	const { status } = useSession();
 
 	return (
 		<Box
@@ -51,6 +49,7 @@ export default function Nav() {
 			bg={useColorModeValue('white', 'gray.900')}
 			borderBottomWidth="1px"
 			px={4}
+			pos="static"
 		>
 			<Container maxW="container.lg">
 				<Flex
@@ -72,16 +71,6 @@ export default function Nav() {
 								}
 								onClick={toggleColorMode}
 							/>
-							{status === 'authenticated' && (
-								<Button
-									onClick={() => {
-										signOut();
-									}}
-									variant="outline"
-								>
-									Admin: Logout
-								</Button>
-							)}
 						</Stack>
 					</Flex>
 				</Flex>
