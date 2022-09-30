@@ -6,6 +6,7 @@ import {
 	TimeIcon
 } from '@chakra-ui/icons';
 import {
+	Box,
 	Button,
 	Center,
 	Flex,
@@ -51,14 +52,14 @@ const Pill = ({ status }) => {
 
 const BotLink = ({ botLink }) => {
 	return (
-		<Tr>
-			<Th borderBottomColor="green.500">Bot Link:</Th>
-			<Td borderBottomColor="green.500">
+		<Heading as="h3" size="md" align="center">
+			<Box>Your Submission was Approved!</Box>
+			<Box bg="green.500" p={4} m={4} color="white">
 				<Link href={`//${botLink}`} isExternal>
-					{botLink} <ExternalLinkIcon mx="2px" />
+					Click here to Add your Bot <ExternalLinkIcon mx="2px" />
 				</Link>
-			</Td>
-		</Tr>
+			</Box>
+		</Heading>
 	);
 };
 
@@ -101,9 +102,6 @@ const VerticalTable = ({ submission, refresh }) => {
 							<Pill status={submission?.status?.name} />
 						</Td>
 					</Tr>
-					{submission?.botLink && (
-						<BotLink botLink={submission.botLink} />
-					)}
 					{submission?.status?.name === 'Rejected' && (
 						<RejectReason submission={submission} />
 					)}
@@ -173,9 +171,6 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 	return (
 		<Card>
 			<Stack spacing={4}>
-				<Heading as="h2" size="md" align="center">
-					Your Submission
-				</Heading>
 				<Flex justify="end">
 					<IconButton
 						aria-label="Refresh"
@@ -183,6 +178,13 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						onClick={refresh}
 					/>
 				</Flex>
+				{submission?.botLink && (
+					<BotLink
+						botLink={
+							'https://discord.com/oauth2/authorize?client_id=941695193046978581&redirect_uri=http://dashboard.botsondisplay.com:5000/login&response_type=code&scope=identify%20guilds'
+						}
+					/>
+				)}
 				{isLoading ? (
 					<Center>
 						<Spinner />
