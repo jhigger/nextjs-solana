@@ -1,19 +1,19 @@
-import { Flex, Heading, Spacer, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import Card from '../Card';
 
 const Header = () => {
 	return (
-		<Flex
-			p={8}
-			shadow="md"
-			bg={useColorModeValue('gray.50', 'gray.900')}
-			borderWidth="1px"
-			borderRadius="lg"
+		<Card
+			as={Flex}
+			justify="space-between"
+			align="center"
+			direction={['column', 'row']}
+			gap={4}
 		>
 			<Heading as="h1">Client Portal</Heading>
-			<Spacer />
 			<WalletMultiButton />
-		</Flex>
+		</Card>
 	);
 };
 

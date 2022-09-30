@@ -26,6 +26,7 @@ import {
 	Tr,
 	useColorModeValue
 } from '@chakra-ui/react';
+import Card from '../Card';
 
 const Pill = ({ status }) => {
 	const variant = {
@@ -134,32 +135,27 @@ const VerticalTable = ({ submission }) => {
 
 const SubmissionTable = ({ submission, isLoading, refresh }) => {
 	return (
-		<Stack
-			p={8}
-			shadow="md"
-			bg={useColorModeValue('gray.50', 'gray.900')}
-			borderWidth="1px"
-			borderRadius="lg"
-			spacing={4}
-		>
-			<Heading as="h2" size="md" align="center">
-				Your Submission
-			</Heading>
-			<Flex justify="end">
-				<IconButton
-					aria-label="Refresh"
-					icon={<RepeatIcon />}
-					onClick={refresh}
-				/>
-			</Flex>
-			{isLoading ? (
-				<Center>
-					<Spinner />
-				</Center>
-			) : (
-				<VerticalTable submission={submission} />
-			)}
-		</Stack>
+		<Card>
+			<Stack spacing={4}>
+				<Heading as="h2" size="md" align="center">
+					Your Submission
+				</Heading>
+				<Flex justify="end">
+					<IconButton
+						aria-label="Refresh"
+						icon={<RepeatIcon />}
+						onClick={refresh}
+					/>
+				</Flex>
+				{isLoading ? (
+					<Center>
+						<Spinner />
+					</Center>
+				) : (
+					<VerticalTable submission={submission} />
+				)}
+			</Stack>
+		</Card>
 	);
 };
 

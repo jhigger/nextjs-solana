@@ -6,16 +6,16 @@ import {
 	Heading,
 	Input,
 	Stack,
-	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
-import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
-
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Card from '../Card';
 
 const LoginPanel = () => {
+	const { status } = useSession();
 	const [loading, setLoading] = useState(false);
 	const {
 		handleSubmit,
@@ -66,59 +66,55 @@ const LoginPanel = () => {
 			});
 	};
 
+	if (status === 'authenticated') {
+		return null;
+	}
+
 	return (
-		<Container maxW="xs">
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Stack
-					p={8}
-					shadow="md"
-					bg={useColorModeValue('gray.50', 'gray.900')}
-					borderWidth="1px"
-					borderRadius="lg"
-					spacing={4}
-				>
-					<Heading as="h1" align="center">
-						Login
-					</Heading>
-
-					<FormControl isInvalid={errors.username} isRequired>
-						<Input
-							placeholder="Username"
-							id="username"
-							type="text"
-							{...register('username', {
-								required: 'This is required'
-							})}
-						/>
-						<FormErrorMessage>
-							{errors.username && errors.username.message}
-						</FormErrorMessage>
-					</FormControl>
-
-					<FormControl isInvalid={errors.password} isRequired>
-						<Input
-							placeholder="Password"
-							id="password"
-							type="password"
-							{...register('password', {
-								required: 'This is required'
-							})}
-						/>
-						<FormErrorMessage>
-							{errors.password && errors.password.message}
-						</FormErrorMessage>
-					</FormControl>
-
-					<Button
-						colorScheme="purple"
-						isLoading={loading}
-						type="submit"
-					>
-						Login
-					</Button>
-				</Stack>
-			</form>
-		</Container>
+		<Card>
+			<Container maxW="max">
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Stack spacing={4}>
+						<Heading as="h1" align="center">
+							Admin
+						</Heading>
+						<FormControl isInvalid={errors.username} isRequired>
+							<Input
+								placeholder="Username"
+								id="username"
+								type="text"
+								{...register('username', {
+									required: 'This is required'
+								})}
+							/>
+							<FormErrorMessage>
+								{errors.username && errors.username.message}
+							</FormErrorMessage>
+						</FormControl>
+						<FormControl isInvalid={errors.password} isRequired>
+							<Input
+								placeholder="Password"
+								id="password"
+								type="password"
+								{...register('password', {
+									required: 'This is required'
+								})}
+							/>
+							<FormErrorMessage>
+								{errors.password && errors.password.message}
+							</FormErrorMessage>
+						</FormControl>
+						<Button
+							colorScheme="purple"
+							isLoading={loading}
+							type="submit"
+						>
+							Login
+						</Button>
+					</Stack>
+				</form>
+			</Container>
+		</Card>
 	);
 };
 

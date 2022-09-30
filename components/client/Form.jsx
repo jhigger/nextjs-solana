@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
+import Card from '../Card';
 
 const RadioCard = (props) => {
 	const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -152,15 +153,8 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 	};
 
 	return (
-		<Flex
-			p={8}
-			shadow="md"
-			bg={useColorModeValue('gray.50', 'gray.900')}
-			borderWidth="1px"
-			borderRadius="lg"
-			justify="center"
-		>
-			<Container maxW="container.sm">
+		<Card>
+			<Container maxW="max">
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Stack spacing={4}>
 						<Input
@@ -171,7 +165,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 							value={publicKey?.toBase58()}
 							hidden
 						/>
-
 						<FormControl isInvalid={errors.discordId} isRequired>
 							<FormLabel htmlFor="discordId">
 								Your Discord ID
@@ -193,7 +186,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 								{errors.discordId && errors.discordId.message}
 							</FormErrorMessage>
 						</FormControl>
-
 						<FormControl
 							isInvalid={errors.communityName}
 							isRequired
@@ -214,7 +206,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 									errors.communityName.message}
 							</FormErrorMessage>
 						</FormControl>
-
 						<FormControl
 							isInvalid={errors.discordServerUrl}
 							isRequired
@@ -235,7 +226,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 									errors.discordServerUrl.message}
 							</FormErrorMessage>
 						</FormControl>
-
 						<FormControl isInvalid={errors.twitterUrl} isRequired>
 							<FormLabel htmlFor="twitterUrl">
 								Twitter URL
@@ -252,7 +242,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 								{errors.twitterUrl && errors.twitterUrl.message}
 							</FormErrorMessage>
 						</FormControl>
-
 						<FormControl isInvalid={errors.service} isRequired>
 							<Services
 								name={'service'}
@@ -263,7 +252,6 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 								{errors.service && errors.service.message}
 							</FormErrorMessage>
 						</FormControl>
-
 						<Button
 							bg="purple.600"
 							color="purple.100"
@@ -276,7 +264,7 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 					</Stack>
 				</form>
 			</Container>
-		</Flex>
+		</Card>
 	);
 };
 
