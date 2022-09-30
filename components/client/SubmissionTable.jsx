@@ -6,6 +6,7 @@ import {
 	TimeIcon
 } from '@chakra-ui/icons';
 import {
+	Button,
 	Center,
 	Flex,
 	Heading,
@@ -24,8 +25,9 @@ import {
 	Text,
 	Th,
 	Tr,
-	useColorModeValue
+	useToast
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import Card from '../Card';
 
 const Pill = ({ status }) => {
@@ -69,7 +71,26 @@ const RejectReason = ({ submission }) => {
 	);
 };
 
-const VerticalTable = ({ submission }) => {
+const VerticalTable = ({ submission, refresh }) => {
+	const [loading, setLoading] = useState(false);
+	const toast = useToast();
+
+	const handleReapply = (address) => {
+		setLoading(true);
+		fetch(`/api/submissions/${address}`, {
+			method: 'DELETE',
+			body: JSON.stringify({ address }),
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8'
+			}
+		})
+			.then(() => {
+				refresh();
+			})
+			.catch((err) => console.log(err))
+			.finally(() => setLoading(false));
+	};
+
 	return (
 		<TableContainer w="full" h="full" overflowY>
 			<Table>
@@ -128,6 +149,19 @@ const VerticalTable = ({ submission }) => {
 						</Text>
 					</TableCaption>
 				)}
+				{submission?.status?.name === 'Rejected' && (
+					<TableCaption>
+						<Button
+							bg="purple.600"
+							color="purple.100"
+							_hover={{ bg: 'purple.500' }}
+							isLoading={loading}
+							onClick={() => handleReapply(submission.address)}
+						>
+							Reapply
+						</Button>
+					</TableCaption>
+				)}
 			</Table>
 		</TableContainer>
 	);
@@ -152,7 +186,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 						<Spinner />
 					</Center>
 				) : (
-					<VerticalTable submission={submission} />
+					<VerticalTable submission={submission} refresh={refresh} />
 				)}
 			</Stack>
 		</Card>
