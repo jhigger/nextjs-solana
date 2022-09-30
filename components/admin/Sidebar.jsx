@@ -74,8 +74,8 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 			borderRight="1px"
 			borderRightColor={useColorModeValue('gray.200', 'gray.700')}
 			w={{ base: 'full', md: 60 }}
-			pos="fixed"
-			h="full"
+			pos="absolute"
+			h={{ base: 'full', md: 'calc(100vh - 68px)' }}
 			{...rest}
 		>
 			<Flex alignItems="center" m="8" justifyContent="space-between">
@@ -84,7 +84,7 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 					onClick={onClose}
 				/>
 			</Flex>
-			<Flex direction="column" h="calc(100vh - 165px)">
+			<Flex direction="column" h="80%">
 				<Stack spacing={4}>
 					{LinkItems.map((link, i) => (
 						<NavItem
