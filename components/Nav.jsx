@@ -46,7 +46,7 @@ export default function Nav() {
 	return (
 		<Box
 			shadow="lg"
-			bg={useColorModeValue('white', 'gray.900')}
+			bg={useColorModeValue('white', 'gray.800')}
 			borderBottomWidth="1px"
 			px={4}
 			pos="static"
