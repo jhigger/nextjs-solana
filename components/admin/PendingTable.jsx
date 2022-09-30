@@ -1,9 +1,4 @@
-import {
-	CheckIcon,
-	CloseIcon,
-	HamburgerIcon,
-	RepeatIcon
-} from '@chakra-ui/icons';
+import { HamburgerIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
 	Button,
 	Center,
@@ -13,7 +8,6 @@ import {
 	Link,
 	Menu,
 	MenuButton,
-	MenuItem,
 	MenuList,
 	Spinner,
 	Stack,
@@ -30,6 +24,7 @@ import {
 import { useState } from 'react';
 import { FaCopy, FaDiscord, FaTwitter } from 'react-icons/fa';
 import useStatus from '../../hooks/useStatus';
+import ApproveBotLinkModal from './ApproveBotLinkModal';
 import RejectReasonModal from './RejectReasonModal';
 
 const PendingTable = () => {
@@ -173,18 +168,13 @@ const PendingTable = () => {
 													/>
 												</Center>
 												<MenuList>
-													<MenuItem
-														icon={<CheckIcon />}
-														onClick={() =>
-															handleApprove(
-																row.address
-															)
+													<ApproveBotLinkModal
+														handleApprove={
+															handleApprove
 														}
-													>
-														Approve
-													</MenuItem>
+														address={row.address}
+													/>
 													<RejectReasonModal
-														icon={<CloseIcon />}
 														handleReject={
 															handleReject
 														}
