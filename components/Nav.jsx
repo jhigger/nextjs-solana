@@ -47,12 +47,12 @@ export default function Nav() {
 
 	return (
 		<Box
-			shadow="md"
+			shadow="lg"
 			bg={useColorModeValue('white', 'gray.900')}
 			borderBottomWidth="1px"
 			px={4}
 		>
-			<Container maxW="container.xl">
+			<Container maxW="container.lg">
 				<Flex
 					h={16}
 					alignItems={'center'}
