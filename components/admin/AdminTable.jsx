@@ -113,7 +113,7 @@ const AdminTable = () => {
 		setLoading(true);
 		const showToast = () => {
 			return toast({
-				title: 'Whitelist updated',
+				title: 'Admin deleted',
 				status: 'info',
 				isClosable: true
 			});
@@ -123,10 +123,16 @@ const AdminTable = () => {
 			method: 'DELETE',
 			headers: { 'Content-type': 'application/json; charset=UTF-8' }
 		})
-			.then(() => {
+			.then(({ ok }) => {
+				if (!ok) {
+					return toast({
+						title: 'Cannot delete all admins!',
+						status: 'error',
+						isClosable: true
+					});
+				}
 				showToast();
 				refresh();
-				reset();
 			})
 			.catch((err) => console.log(err))
 			.finally(() => {
