@@ -31,3 +31,9 @@ model Submission {
 
   @@index([address, statusId])
 }
+
+model Admin {
+  address String @id
+
+  @@index([address])
+}
