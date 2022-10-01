@@ -12,6 +12,12 @@ export default async (req, res) => {
 		} else if (req.method === 'DELETE') {
 			// Process a DELETE request
 			const { address } = req.query;
+
+			const count = await prisma.admin.count();
+			if (count === 1) {
+				throw new Error('Cannot delete all admins!');
+			}
+
 			const result = await prisma.admin.delete({
 				where: { address }
 			});
@@ -21,6 +27,6 @@ export default async (req, res) => {
 			res.status(200).json({ name: 'Hello, world!' });
 		}
 	} catch (error) {
-		res.status(500).json(error);
+		res.status(500).json({ error: error.message });
 	}
 };
