@@ -74,13 +74,11 @@ const RejectReason = ({ submission }) => {
 
 const VerticalTable = ({ submission, refresh }) => {
 	const [loading, setLoading] = useState(false);
-	const toast = useToast();
 
 	const handleReapply = (address) => {
 		setLoading(true);
 		fetch(`/api/submissions/${address}`, {
 			method: 'DELETE',
-			body: JSON.stringify({ address }),
 			headers: {
 				'Content-type': 'application/json; charset=UTF-8'
 			}
