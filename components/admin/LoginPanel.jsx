@@ -10,7 +10,7 @@ import Card from '../Card';
 
 const LoginPanel = () => {
 	const [loading, setLoading] = useState(false);
-	const { publicKey, wallet, connected } = useWallet();
+	const { publicKey } = useWallet();
 	const { handleSubmit } = useForm();
 	const { status } = useSession();
 	const { sign } = useSignature();
@@ -78,15 +78,14 @@ const LoginPanel = () => {
 							Admin
 						</Heading>
 						<WalletMultiButton />
-						{wallet && connected && (
-							<Button
-								colorScheme="purple"
-								isLoading={loading}
-								type="submit"
-							>
-								Login
-							</Button>
-						)}
+						<Button
+							colorScheme="purple"
+							isLoading={loading}
+							type="submit"
+							hidden={!publicKey}
+						>
+							Login
+						</Button>
 					</Stack>
 				</form>
 			</Container>
