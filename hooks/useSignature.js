@@ -1,9 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import bs58 from 'bs58';
-import { useState } from 'react';
 
 export default () => {
-	const [statusCode, setStatusCode] = useState(200);
 	const { publicKey, signMessage } = useWallet();
 
 	const sign = async () => {
@@ -27,14 +25,11 @@ export default () => {
 				headers: { 'Content-type': 'application/json; charset=UTF-8' }
 			});
 
-			setStatusCode(res?.status);
+			return { statusCode: res?.status };
 		} catch (error) {
 			console.log(error);
+			return { statusCode: 500 };
 		}
-
-		return {
-			statusCode
-		};
 	};
 
 	return {
