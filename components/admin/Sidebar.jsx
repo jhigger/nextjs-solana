@@ -17,11 +17,13 @@ import {
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { FiLogOut, FiMenu } from 'react-icons/fi';
+import { HiUserGroup } from 'react-icons/hi';
 
 const LinkItems = [
 	{ name: 'Pending', icon: TimeIcon },
 	{ name: 'Approved', icon: CheckIcon },
-	{ name: 'Rejected', icon: CloseIcon }
+	{ name: 'Rejected', icon: CloseIcon },
+	{ name: 'Admins', icon: HiUserGroup }
 ];
 
 export default function Sidebar({ tabs }) {

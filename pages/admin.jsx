@@ -1,6 +1,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import AdminTable from '../components/admin/AdminTable';
 import ApprovedTable from '../components/admin/ApprovedTable';
 import PendingTable from '../components/admin/PendingTable';
 import RejectedTable from '../components/admin/RejectedTable';
@@ -26,7 +27,8 @@ const Admin = () => {
 					tabs={[
 						<PendingTable />,
 						<ApprovedTable />,
-						<RejectedTable />
+						<RejectedTable />,
+						<AdminTable />
 					]}
 				/>
 			</>
