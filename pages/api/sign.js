@@ -10,7 +10,6 @@ export default async (req, res) => {
 			const encodedMessage = new TextEncoder().encode(message);
 			const publicKey = new PublicKey(publicKeyStr);
 			const signature = bs58.decode(encodedSignedMessage);
-
 			// Verify that the bytes were signed using the private key that matches the known public key
 			if (
 				!sign.detached.verify(

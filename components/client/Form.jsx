@@ -2,20 +2,19 @@ import {
 	Box,
 	Button,
 	Container,
-	Flex,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
 	Input,
 	SimpleGrid,
 	Stack,
-	useColorModeValue,
 	useRadio,
 	useRadioGroup,
 	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
+import useSignature from '../../hooks/useSignature';
 import Card from '../Card';
 
 const RadioCard = (props) => {
@@ -102,7 +101,7 @@ const Services = ({ name, control, register }) => {
 	);
 };
 
-const Form = ({ publicKey, refresh, handleSignMessage }) => {
+const Form = ({ publicKey, refresh }) => {
 	const {
 		handleSubmit,
 		register,
@@ -110,6 +109,7 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 		reset,
 		control
 	} = useForm();
+	const { sign } = useSignature();
 
 	const toast = useToast();
 	const [loading, setLoading] = useState(false);
@@ -125,9 +125,9 @@ const Form = ({ publicKey, refresh, handleSignMessage }) => {
 			});
 		};
 
-		const res = await handleSignMessage();
+		const { statusCode } = await sign();
 
-		if (res?.status === 200) {
+		if (statusCode === 200) {
 			fetch(`/api/submit`, {
 				method: 'POST',
 				body: JSON.stringify(values),

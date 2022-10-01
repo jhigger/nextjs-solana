@@ -1,11 +1,4 @@
-import {
-	Button,
-	Container,
-	Heading,
-	Input,
-	Stack,
-	useToast
-} from '@chakra-ui/react';
+import { Button, Container, Heading, Stack, useToast } from '@chakra-ui/react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { signIn, useSession } from 'next-auth/react';
@@ -25,10 +18,10 @@ const LoginPanel = () => {
 	const toast = useToast();
 	const router = useRouter();
 
-	const onSubmit = async (values) => {
+	const onSubmit = async () => {
 		setLoading(true);
 		const address = publicKey?.toBase58();
-		const { statusCode, error } = await sign(address);
+		const { statusCode } = await sign();
 
 		if (statusCode === 200) {
 			signIn('credentials', {
@@ -63,7 +56,6 @@ const LoginPanel = () => {
 					setLoading(false);
 				});
 		} else {
-			console.log(error);
 			setLoading(false);
 			return toast({
 				title: `Error verifying wallet, please try again`,
