@@ -1,6 +1,9 @@
+import { getSession } from 'next-auth/react';
 import prisma from '../../../../lib/prisma';
 
 export default async (req, res) => {
+	const session = await getSession({ req });
+
 	try {
 		if (req.method === 'GET') {
 			// Process a GET request
@@ -12,6 +15,10 @@ export default async (req, res) => {
 			res.status(200).json(result);
 		} else if (req.method === 'PUT') {
 			// Process a PUT request
+			if (!session) {
+				return res.status(401).json({ error: 'Unauthenticated user' });
+			}
+
 			const { address } = req.query;
 			const { statusId, botLink, rejectReason } = req.body;
 			const result = await prisma.submission.update({
@@ -21,6 +28,10 @@ export default async (req, res) => {
 			res.status(200).json(result);
 		} else if (req.method === 'DELETE') {
 			// Process a DELETE request
+			if (!session) {
+				return res.status(401).json({ error: 'Unauthenticated user' });
+			}
+
 			const { address } = req.query;
 			const result = await prisma.submission.delete({
 				where: { address }

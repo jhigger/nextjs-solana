@@ -1,6 +1,12 @@
+import { getSession } from 'next-auth/react';
 import prisma from '../../../lib/prisma';
 
 export default async (req, res) => {
+	const session = await getSession({ req });
+	if (!session) {
+		return res.status(401).json({ error: 'Unauthenticated user' });
+	}
+
 	try {
 		if (req.method === 'GET') {
 			// Process a GET request
