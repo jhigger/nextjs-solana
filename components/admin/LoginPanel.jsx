@@ -1,69 +1,76 @@
 import {
 	Button,
 	Container,
-	FormControl,
-	FormErrorMessage,
 	Heading,
 	Input,
 	Stack,
 	useToast
 } from '@chakra-ui/react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import useSignature from '../../hooks/useSignature';
 import Card from '../Card';
 
 const LoginPanel = () => {
-	const { status } = useSession();
 	const [loading, setLoading] = useState(false);
-	const {
-		handleSubmit,
-		register,
-		formState: { errors },
-		reset
-	} = useForm();
+	const { publicKey, wallet, connected } = useWallet();
+	const { handleSubmit } = useForm();
+	const { status } = useSession();
+	const { sign } = useSignature();
 
 	const toast = useToast();
 	const router = useRouter();
 
-	const onSubmit = (values) => {
+	const onSubmit = async (values) => {
 		setLoading(true);
-		const { username, password } = values;
+		const address = publicKey?.toBase58();
+		const { statusCode, error } = await sign(address);
 
-		signIn('credentials', {
-			username,
-			password,
-			callbackUrl: `${
-				router.query.callbackUrl
-					? router.query.callbackUrl
-					: window.location.origin
-			}`,
-			redirect: false
-		})
-			.then((res) => {
-				reset();
-				if (!res.ok) {
-					return toast({
-						title: res.error,
-						status: 'error',
+		if (statusCode === 200) {
+			signIn('credentials', {
+				address,
+				callbackUrl: `${
+					router.query.callbackUrl
+						? router.query.callbackUrl
+						: window.location.origin
+				}`,
+				redirect: false
+			})
+				.then((res) => {
+					if (!res.ok) {
+						return toast({
+							title: res.error,
+							status: 'error',
+							isClosable: true
+						});
+					}
+
+					router.push(res.url);
+					toast({
+						title: `Logged In`,
+						status: 'success',
 						isClosable: true
 					});
-				}
-
-				router.push(res.url);
-				toast({
-					title: `Logged In`,
-					status: 'success',
-					isClosable: true
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+				.finally(() => {
+					setLoading(false);
 				});
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-			.finally(() => {
-				setLoading(false);
+		} else {
+			console.log(error);
+			setLoading(false);
+			return toast({
+				title: `Error verifying wallet, please try again`,
+				status: 'error',
+				isClosable: true
 			});
+		}
 	};
 
 	if (status === 'authenticated') {
@@ -78,39 +85,16 @@ const LoginPanel = () => {
 						<Heading as="h1" align="center">
 							Admin
 						</Heading>
-						<FormControl isInvalid={errors.username} isRequired>
-							<Input
-								placeholder="Username"
-								id="username"
-								type="text"
-								{...register('username', {
-									required: 'This is required'
-								})}
-							/>
-							<FormErrorMessage>
-								{errors.username && errors.username.message}
-							</FormErrorMessage>
-						</FormControl>
-						<FormControl isInvalid={errors.password} isRequired>
-							<Input
-								placeholder="Password"
-								id="password"
-								type="password"
-								{...register('password', {
-									required: 'This is required'
-								})}
-							/>
-							<FormErrorMessage>
-								{errors.password && errors.password.message}
-							</FormErrorMessage>
-						</FormControl>
-						<Button
-							colorScheme="purple"
-							isLoading={loading}
-							type="submit"
-						>
-							Login
-						</Button>
+						<WalletMultiButton />
+						{wallet && connected && (
+							<Button
+								colorScheme="purple"
+								isLoading={loading}
+								type="submit"
+							>
+								Login
+							</Button>
+						)}
 					</Stack>
 				</form>
 			</Container>

@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import prisma from '../../../lib/prisma';
 
 export default NextAuth({
 	session: { strategy: 'jwt' },
@@ -8,13 +9,16 @@ export default NextAuth({
 			name: 'credentials',
 			credentials: {},
 			async authorize(credentials, req) {
-				const { username, password } = credentials;
+				const { address } = credentials;
+				const admin = await prisma.admin.findUnique({
+					where: { address }
+				});
 
-				if (username !== 'admin' || password !== 'admin') {
-					throw new Error('Invalid credentials');
+				if (!admin) {
+					throw new Error('Account is not admin!');
 				}
 
-				return { authenticated: true };
+				return admin;
 			}
 		})
 	],
