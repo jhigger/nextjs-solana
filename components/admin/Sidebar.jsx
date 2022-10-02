@@ -60,8 +60,8 @@ export default function Sidebar({ tabs }) {
 			</Drawer>
 			{/* mobilenav */}
 			<MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-			<Box ml={{ base: 0, md: 60 }} p="4">
-				<Container maxW="container.xl" py={4}>
+			<Box ml={{ base: 0, md: 48 }} p="4">
+				<Container maxW="fit-content" py={4} h="100vh">
 					{tabs[tab]}
 				</Container>
 			</Box>
@@ -75,9 +75,12 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 			bg={useColorModeValue('white', 'gray.900')}
 			borderRight="1px"
 			borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-			w={{ base: 'full', md: 60 }}
-			pos="absolute"
-			h={{ base: 'full', md: 'calc(100vh - 68px)' }}
+			w={{ base: 'full', md: 48 }}
+			pos="fixed"
+			h="full"
+			mt={{ base: 'full', md: '-68px' }}
+			pt={{ base: 'full', md: '68px' }}
+			zIndex={1}
 			{...rest}
 		>
 			<Flex alignItems="center" m="8" justifyContent="space-between">

@@ -49,7 +49,8 @@ export default function Nav() {
 			bg={useColorModeValue('white', 'gray.800')}
 			borderBottomWidth="1px"
 			px={4}
-			pos="static"
+			pos="relative"
+			zIndex={2}
 		>
 			<Container maxW="container.lg">
 				<Flex
