@@ -61,7 +61,7 @@ export default function Sidebar({ tabs }) {
 			{/* mobilenav */}
 			<MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
 			<Box ml={{ base: 0, md: 48 }} p="4">
-				<Container maxW="fit-content" py={4} h="100vh">
+				<Container maxW="fit-content" py={4}>
 					{tabs[tab]}
 				</Container>
 			</Box>
