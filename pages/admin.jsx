@@ -17,10 +17,10 @@ const Admin = () => {
 	useEffect(() => {
 		if (status === 'unauthenticated') {
 			signIn();
-		} else if (!admin) {
+		} else if (admin === null) {
 			signOut();
 		}
-	}, [status, publicKey]);
+	}, [status, admin]);
 
 	if (status === 'authenticated')
 		return (
