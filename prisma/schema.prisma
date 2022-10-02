@@ -16,18 +16,19 @@ model Status {
 }
 
 model Submission {
-  address          String   @id
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @default(now()) @map("updated_at")
-  discordId        String   @map("discord_id")
-  communityName    String   @map("community_name")
-  discordServerUrl String   @map("discord_server_url")
-  twitterUrl       String   @map("twitter_url")
-  service          String   @map("service")
-  statusId         Int      @default(1) @map("status_id")
-  status           Status   @relation(fields: [statusId], references: [id])
-  botLink          String?  @default("") @map("bot_link")
-  rejectReason     String?  @default("") @map("reject_reason")
+  address          String    @id
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @default(now()) @map("updated_at")
+  discordId        String    @map("discord_id")
+  communityName    String    @map("community_name")
+  discordServerUrl String    @map("discord_server_url")
+  twitterUrl       String    @map("twitter_url")
+  service          String    @map("service")
+  statusId         Int       @default(1) @map("status_id")
+  status           Status    @relation(fields: [statusId], references: [id])
+  botLink          String?   @default("") @map("bot_link")
+  rejectReason     String?   @default("") @map("reject_reason")
+  resolvedAt       DateTime? @map("resolved_at")
 
   @@index([address, statusId])
 }

@@ -129,6 +129,7 @@ const RejectedTable = () => {
 									<Th>Twitter </Th>
 									<Th>Service</Th>
 									<Th textAlign="center">Reject Reason</Th>
+									<Th>DateTime Rejected</Th>
 								</Tr>
 							</Thead>
 							<Tbody>
@@ -182,6 +183,11 @@ const RejectedTable = () => {
 													}
 													refresh={refresh}
 												/>
+											</Td>
+											<Td>
+												{new Date(
+													row?.resolvedAt
+												).toLocaleString()}
 											</Td>
 										</Tr>
 									);

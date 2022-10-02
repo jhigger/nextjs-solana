@@ -21,9 +21,19 @@ export default async (req, res) => {
 
 			const { address } = req.query;
 			const { statusId, botLink, rejectReason } = req.body;
+
+			const resolvedAt =
+				statusId || statusId === 1 ? new Date() : undefined;
+
 			const result = await prisma.submission.update({
 				where: { address },
-				data: { statusId, botLink, rejectReason, updatedAt: new Date() }
+				data: {
+					statusId,
+					botLink,
+					rejectReason,
+					updatedAt: new Date(),
+					resolvedAt
+				}
 			});
 			res.status(200).json(result);
 		} else if (req.method === 'DELETE') {
@@ -42,6 +52,7 @@ export default async (req, res) => {
 			res.status(200).json({ name: 'Hello, world!' });
 		}
 	} catch (error) {
+		console.log(error);
 		res.status(500).json(error);
 	}
 };

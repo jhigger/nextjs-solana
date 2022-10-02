@@ -129,6 +129,7 @@ const ApprovedTable = () => {
 									<Th>Twitter </Th>
 									<Th>Service</Th>
 									<Th textAlign="center">Bot Link</Th>
+									<Th>DateTime Approved</Th>
 								</Tr>
 							</Thead>
 							<Tbody>
@@ -180,6 +181,11 @@ const ApprovedTable = () => {
 													botLink={row?.botLink}
 													refresh={refresh}
 												/>
+											</Td>
+											<Td>
+												{new Date(
+													row?.resolvedAt
+												).toLocaleString()}
 											</Td>
 										</Tr>
 									);
