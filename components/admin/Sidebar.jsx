@@ -78,8 +78,8 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 			w={{ base: 'full', md: 48 }}
 			pos="fixed"
 			h="full"
-			mt={{ base: 'full', md: '-68px' }}
-			pt={{ base: 'full', md: '68px' }}
+			mt={{ md: '-68px' }}
+			pt={{ md: '68px' }}
 			zIndex={1}
 			{...rest}
 		>
@@ -89,7 +89,7 @@ const SidebarContent = ({ onClose, tab, handleTabChange, ...rest }) => {
 					onClick={onClose}
 				/>
 			</Flex>
-			<Flex direction="column" h="80%">
+			<Flex direction="column" h="80%" textAlign="center">
 				<Stack spacing={4}>
 					{LinkItems.map((link, i) => (
 						<NavItem
