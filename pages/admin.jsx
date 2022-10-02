@@ -18,7 +18,7 @@ const Admin = () => {
 		if (status === 'unauthenticated') {
 			signIn();
 		} else if (admin === null) {
-			signOut();
+			signOut({ redirect: false });
 		}
 	}, [status, admin]);
 
