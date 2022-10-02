@@ -1,22 +1,16 @@
 import { Container, Flex, Stack, Text } from '@chakra-ui/react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
 import Form from '../components/client/Form';
 import Header from '../components/client/Header';
 import SubmissionTable from '../components/client/SubmissionTable';
 import useSubmission from '../hooks/useSubmission';
 
 export default function Home() {
-	const { wallet, publicKey, connected, signMessage } = useWallet();
+	const { wallet, publicKey, connected } = useWallet();
 	const { submission, isLoading, mutate } = useSubmission(
 		publicKey?.toBase58()
 	);
-	const [show, setShow] = useState(false);
-
-	useEffect(() => {
-		setShow(wallet && connected);
-	}, [wallet, connected]);
 
 	return (
 		<>
@@ -27,7 +21,7 @@ export default function Home() {
 				<Container maxW="container.lg" py={4}>
 					<Stack spacing={4}>
 						<Header />
-						{show ? (
+						{wallet && connected ? (
 							isLoading || submission ? (
 								<SubmissionTable
 									submission={submission}
