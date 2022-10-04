@@ -182,11 +182,7 @@ const SubmissionTable = ({ submission, isLoading, refresh }) => {
 					/>
 				</Flex>
 				{submission?.botLink && (
-					<BotLink
-						botLink={
-							'https://discord.com/oauth2/authorize?client_id=941695193046978581&redirect_uri=http://dashboard.botsondisplay.com:5000/login&response_type=code&scope=identify%20guilds'
-						}
-					/>
+					<BotLink botLink={submission.botLink} />
 				)}
 				{isLoading ? (
 					<Center>
