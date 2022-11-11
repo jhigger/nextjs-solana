@@ -6,7 +6,6 @@ import {
 	RepeatIcon
 } from '@chakra-ui/icons';
 import {
-	Button,
 	Center,
 	Flex,
 	Heading,
@@ -28,7 +27,7 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { FaCopy, FaTwitter } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
 import useRaid from '../../hooks/useRaid';
 import Card from '../Card';
 

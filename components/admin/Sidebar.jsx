@@ -18,7 +18,7 @@ import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { FiLogOut, FiMenu } from 'react-icons/fi';
 import { HiUserGroup } from 'react-icons/hi';
-import { GiSwordsEmblem } from 'react-icons/Gi';
+import { GiSwordsEmblem } from 'react-icons/gi';
 
 const LinkItems = [
 	{ name: 'Pending', icon: TimeIcon },
