@@ -110,7 +110,7 @@ const Raids = () => {
 										<Tr key={row.signature}>
 											<Td>
 												<Link
-													href={`//solscan.io/tx/${signature}?cluster=devnet`}
+													href={`//solscan.io/tx/${signature}`}
 													isExternal
 												>
 													{shortSignature}{' '}
