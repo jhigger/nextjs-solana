@@ -120,7 +120,7 @@ const Raids = () => {
 											<Td>{row?.payment} SOL</Td>
 											<Td>
 												<Link
-													href={`//${row?.tweet_url}`}
+													href={`${row?.tweet_url}`}
 													isExternal
 												>
 													<IconButton
