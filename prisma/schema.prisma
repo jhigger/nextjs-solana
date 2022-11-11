@@ -4,9 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Status {
@@ -23,12 +23,12 @@ model Submission {
   communityName    String    @map("community_name")
   discordServerUrl String    @map("discord_server_url")
   twitterUrl       String    @map("twitter_url")
-  service          String    @map("service")
+  service          String
   statusId         Int       @default(1) @map("status_id")
-  status           Status    @relation(fields: [statusId], references: [id])
-  botLink          String?   @default("") @map("bot_link")
   rejectReason     String?   @default("") @map("reject_reason")
+  botLink          String?   @default("") @map("bot_link")
   resolvedAt       DateTime? @map("resolved_at")
+  status           Status    @relation(fields: [statusId], references: [id])
 
   @@index([address, statusId])
 }
@@ -39,4 +39,17 @@ model Admin {
   updatedAt DateTime @default(now()) @map("updated_at")
 
   @@index([address])
+}
+
+model Raid {
+  signature  String   @id
+  address    String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  tweet_url  String
+  tweet_id   String
+  payment    Decimal
+  raided     Boolean  @default(false)
+
+  @@index([signature])
 }

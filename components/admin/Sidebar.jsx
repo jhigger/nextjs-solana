@@ -18,11 +18,13 @@ import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { FiLogOut, FiMenu } from 'react-icons/fi';
 import { HiUserGroup } from 'react-icons/hi';
+import { GiSwordsEmblem } from 'react-icons/Gi';
 
 const LinkItems = [
 	{ name: 'Pending', icon: TimeIcon },
 	{ name: 'Approved', icon: CheckIcon },
 	{ name: 'Rejected', icon: CloseIcon },
+	{ name: 'Raids', icon: GiSwordsEmblem },
 	{ name: 'Admins', icon: HiUserGroup }
 ];
 

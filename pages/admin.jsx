@@ -6,6 +6,7 @@ import AdminTable from '../components/admin/AdminTable';
 import ApprovedTable from '../components/admin/ApprovedTable';
 import PendingTable from '../components/admin/PendingTable';
 import RejectedTable from '../components/admin/RejectedTable';
+import Raids from '../components/admin/Raids';
 import Sidebar from '../components/admin/Sidebar';
 import useAdmin from '../hooks/useAdmin';
 
@@ -34,6 +35,7 @@ const Admin = () => {
 						<PendingTable />,
 						<ApprovedTable />,
 						<RejectedTable />,
+						<Raids />,
 						<AdminTable />
 					]}
 				/>

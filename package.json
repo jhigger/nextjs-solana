@@ -15,7 +15,7 @@
     "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@prisma/client": "^4.3.1",
+    "@prisma/client": "^4.6.1",
     "@solana-mobile/wallet-adapter-mobile": "^0.9.1",
     "@solana/wallet-adapter-base": "^0.9.16",
     "@solana/wallet-adapter-react": "^0.15.18",
@@ -34,6 +34,6 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "prisma": "^4.3.1"
+    "prisma": "^4.6.1"
   }
 }
