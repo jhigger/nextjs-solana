@@ -15,7 +15,7 @@ export default function Home() {
 	return (
 		<>
 			<Head>
-				<title>Utility Ape</title>
+				<title>Utility APE | Apply</title>
 			</Head>
 			<Flex as="main" minH="100vh" justify="center">
 				<Container maxW="container.lg" py={4}>

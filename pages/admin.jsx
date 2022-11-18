@@ -28,7 +28,7 @@ const Admin = () => {
 			<>
 				<Head>
 					<meta name="robots" content="noindex,nofollow" />
-					<title>Admin Dashboard</title>
+					<title>UA Admin Dashboard</title>
 				</Head>
 				<Sidebar
 					tabs={[
