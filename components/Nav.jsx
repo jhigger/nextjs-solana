@@ -33,11 +33,12 @@ const NavLink = ({ href, children, ...rest }) => (
 );
 
 const Logo = () => (
-	<NextLink href="/" passHref>
-		<Link filter={useColorModeValue('invert(100%)')}>
-			<Image src={logo} alt="Logo" width="163px" height="40px" />
-		</Link>
-	</NextLink>
+	<Link
+		href="https://utilityape.com/"
+		filter={useColorModeValue('invert(100%)')}
+	>
+		<Image src={logo} alt="Logo" width="163px" height="40px" />
+	</Link>
 );
 
 export default function Nav() {
