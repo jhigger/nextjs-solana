@@ -19,7 +19,7 @@ const NavLink = ({ href, children, ...rest }) => (
 		<Link
 			as={Button}
 			colorscheme="gray"
-			bg={bg}
+			bg={useColorModeValue('white', 'gray.800')}
 			color="white"
 			_hover={{
 				textDecoration: 'none',
@@ -44,6 +44,14 @@ const Logo = () => (
 export default function Nav() {
 	const { colorMode, toggleColorMode } = useColorMode();
 
+	const navItems = [
+		{ name: 'Client', link: 'http://client.utilityape.com/' },
+		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
+		{ name: 'Mutate', link: 'https://mutate.utilityape.com/' },
+		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
+		{ name: 'Dashboard', link: 'http://dashboard.utilityape.com/' }
+	];
+
 	return (
 		<Box
 			shadow="lg"
@@ -62,6 +70,13 @@ export default function Nav() {
 					<Logo />
 					<Flex alignItems={'center'}>
 						<Stack direction={'row'} spacing={7}>
+							{navItems.map((item) => {
+								return (
+									<NavLink href={item.link}>
+										{item.name}
+									</NavLink>
+								);
+							})}
 							<IconButton
 								aria-label="Change color mode"
 								icon={
