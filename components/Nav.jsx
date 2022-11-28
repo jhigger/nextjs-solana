@@ -19,11 +19,11 @@ const NavLink = ({ href, children, ...rest }) => (
 		<Link
 			as={Button}
 			colorscheme="gray"
-			bg={useColorModeValue('white', 'gray.800')}
-			color="white"
+			color={useColorModeValue('black', 'white')}
+			bg="none"
 			_hover={{
 				textDecoration: 'none',
-				bg: 'gray.500'
+				bg: useColorModeValue('gray.100', 'gray.700')
 			}}
 			{...rest}
 		>
