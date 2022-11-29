@@ -49,7 +49,8 @@ export default function Nav() {
 		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
 		{ name: 'Mutate', link: 'https://mutate.utilityape.com/' },
 		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
-		{ name: 'Dashboard', link: 'http://dashboard.utilityape.com/' }
+		{ name: 'Dashboard', link: 'http://dashboard.utilityape.com/' },
+		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' }
 	];
 
 	return (
@@ -77,6 +78,7 @@ export default function Nav() {
 									</NavLink>
 								);
 							})}
+
 							<IconButton
 								aria-label="Change color mode"
 								icon={
