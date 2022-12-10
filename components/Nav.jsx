@@ -50,7 +50,8 @@ export default function Nav() {
 		{ name: 'Mutate', link: 'https://mutate.utilityape.com/' },
 		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
 		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
-		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' }
+		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' },
+		{ name: 'Staking', link: 'https://stake.utilityape.com/' }
 	];
 
 	return (
@@ -70,7 +71,7 @@ export default function Nav() {
 				>
 					<Logo />
 					<Flex alignItems={'center'}>
-						<Stack direction={'row'} spacing={7}>
+						<Stack direction={'row'} spacing={4}>
 							{navItems.map((item) => {
 								return (
 									<NavLink href={item.link}>
