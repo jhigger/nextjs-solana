@@ -51,7 +51,8 @@ export default function Nav() {
 		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
 		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
 		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' },
-		{ name: 'Staking', link: 'https://stake.utilityape.com/' }
+		{ name: 'Staking', link: 'https://stake.utilityape.com/' },
+		{ name: 'Pixel Claim', link: 'https://pixel.utilityape.com/' }
 	];
 
 	return (
@@ -71,7 +72,7 @@ export default function Nav() {
 				>
 					<Logo />
 					<Flex alignItems={'center'}>
-						<Stack direction={'row'} spacing={4}>
+						<Stack direction={'row'} spacing={2}>
 							{navItems.map((item) => {
 								return (
 									<NavLink href={item.link}>
