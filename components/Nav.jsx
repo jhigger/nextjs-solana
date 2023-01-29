@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Button,
@@ -6,9 +6,14 @@ import {
 	Flex,
 	IconButton,
 	Link,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Stack,
 	useColorMode,
-	useColorModeValue
+	useColorModeValue,
+	useDisclosure
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
@@ -43,16 +48,28 @@ const Logo = () => (
 
 export default function Nav() {
 	const { colorMode, toggleColorMode } = useColorMode();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const navItems = [
 		{ name: 'Client', link: 'http://client.utilityape.com/' },
 		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
 		{ name: 'Mutate', link: 'https://mutate.utilityape.com/' },
 		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
-		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
+		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' }
+	];
+
+	const utilities = [
 		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' },
 		{ name: 'Staking', link: 'https://stake.utilityape.com/' },
-		{ name: 'Pixel Claim', link: 'https://pixel.utilityape.com/' }
+		{ name: 'Pixel Claim', link: 'https://pixel.utilityape.com/' },
+		{
+			name: 'Missions',
+			link: 'https://missions.utilityape.com/'
+		},
+		{
+			name: 'Stats',
+			link: 'https://stats.utilityape.com/'
+		}
 	];
 
 	return (
@@ -80,6 +97,31 @@ export default function Nav() {
 									</NavLink>
 								);
 							})}
+							<Menu isOpen={isOpen}>
+								<MenuButton
+									as={Button}
+									rightIcon={<ChevronDownIcon />}
+									onMouseEnter={onOpen}
+									onMouseLeave={onClose}
+								>
+									Utilities
+								</MenuButton>
+								<MenuList
+									onMouseEnter={onOpen}
+									onMouseLeave={onClose}
+								>
+									{utilities.map((item) => {
+										return (
+											<NavLink
+												as={MenuItem}
+												href={item.link}
+											>
+												{item.name}
+											</NavLink>
+										);
+									})}
+								</MenuList>
+							</Menu>
 
 							<IconButton
 								aria-label="Change color mode"
