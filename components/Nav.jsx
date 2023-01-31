@@ -53,15 +53,17 @@ export default function Nav() {
 	const navItems = [
 		{ name: 'Client', link: 'http://client.utilityape.com/' },
 		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
-		{ name: 'Mutate', link: 'https://mutate.utilityape.com/' },
 		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
-		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' }
+		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
+		{
+			name: 'Coinflip',
+			link: 'https://degencoinflip.com/utilityape'
+		}
 	];
 
 	const utilities = [
 		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' },
 		{ name: 'Staking', link: 'https://stake.utilityape.com/' },
-		{ name: 'Pixel Claim', link: 'https://pixel.utilityape.com/' },
 		{
 			name: 'Missions',
 			link: 'https://missions.utilityape.com/'
