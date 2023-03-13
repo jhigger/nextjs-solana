@@ -53,7 +53,7 @@ export default function Nav() {
 	const navItems = [
 		{ name: 'Client', link: 'http://client.utilityape.com/' },
 		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
-		{ name: 'Raid', link: 'https://pay-to-raid.utilityape.com/' },
+		{ name: 'Raid', link: 'https://discord.com/invite/utilityape' },
 		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
 		{
 			name: 'Coinflip',
