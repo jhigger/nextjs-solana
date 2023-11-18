@@ -18,11 +18,13 @@ import {
 import Image from 'next/image';
 import NextLink from 'next/link';
 import logo from '../assets/logo.png';
+import { dropDownItems, homeLink, links } from '../links';
 
 const NavLink = ({ href, children, ...rest }) => (
 	<NextLink href={href.toLowerCase()} passHref>
-		<Link
-			as={Button}
+		<Button
+			isExternal
+			as={Link}
 			colorscheme="gray"
 			color={useColorModeValue('black', 'white')}
 			bg="none"
@@ -33,15 +35,12 @@ const NavLink = ({ href, children, ...rest }) => (
 			{...rest}
 		>
 			{children}
-		</Link>
+		</Button>
 	</NextLink>
 );
 
 const Logo = () => (
-	<Link
-		href="https://utilityape.com/"
-		filter={useColorModeValue('invert(100%)')}
-	>
+	<Link href={homeLink} filter={useColorModeValue('invert(100%)')}>
 		<Image src={logo} alt="Logo" width="163px" height="40px" />
 	</Link>
 );
@@ -49,30 +48,6 @@ const Logo = () => (
 export default function Nav() {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	const navItems = [
-		{ name: 'Client', link: 'http://client.utilityape.com/' },
-		{ name: 'Holders', link: 'https://holders.utilityape.com/' },
-		{ name: 'Raid', link: 'https://discord.com/invite/utilityape' },
-		{ name: 'Client Dashboard', link: 'http://dashboard.utilityape.com/' },
-		{
-			name: 'Coinflip',
-			link: 'https://degencoinflip.com/utilityape'
-		}
-	];
-
-	const utilities = [
-		{ name: 'Sniper Tools', link: 'https://utilityape.soltools.xyz/' },
-		{ name: 'Staking', link: 'https://stake.utilityape.com/' },
-		{
-			name: 'Missions',
-			link: 'https://missions.utilityape.com/'
-		},
-		{
-			name: 'Stats',
-			link: 'https://stats.utilityape.com/'
-		}
-	];
 
 	return (
 		<Box
@@ -92,10 +67,10 @@ export default function Nav() {
 					<Logo />
 					<Flex alignItems={'center'}>
 						<Stack direction={'row'} spacing={2}>
-							{navItems.map((item) => {
+							{links.map((item) => {
 								return (
-									<NavLink href={item.link}>
-										{item.name}
+									<NavLink href={item.href}>
+										{item.text}
 									</NavLink>
 								);
 							})}
@@ -112,14 +87,14 @@ export default function Nav() {
 									onMouseEnter={onOpen}
 									onMouseLeave={onClose}
 								>
-									{utilities.map((item) => {
+									{dropDownItems.map((item) => {
 										return (
-											<NavLink
-												as={MenuItem}
-												href={item.link}
+											<MenuItem
+												as={NavLink}
+												href={item.href}
 											>
-												{item.name}
-											</NavLink>
+												{item.text}
+											</MenuItem>
 										);
 									})}
 								</MenuList>

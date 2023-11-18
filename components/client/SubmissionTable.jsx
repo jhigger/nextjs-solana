@@ -25,10 +25,10 @@ import {
 	Td,
 	Text,
 	Th,
-	Tr,
-	useToast
+	Tr
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { discordLink } from '../../links';
 import Card from '../Card';
 
 const Pill = ({ status }) => {
@@ -142,8 +142,18 @@ const VerticalTable = ({ submission, refresh }) => {
 					<TableCaption>
 						<Text color="white" fontSize="lg">
 							Please allow us 24 to 48 hours to review.
-							<br /> Join https://discord.gg/utilityape if you'd
-							like to receive a quicker response.
+							<br /> Join{' '}
+							{
+								<Link
+									href={`//${discordLink}`}
+									isExternal
+									textColor={'blue.500'}
+									textDecorationLine={'underline'}
+								>
+									our discord
+								</Link>
+							}{' '}
+							if you'd like to receive a quicker response.
 						</Text>
 					</TableCaption>
 				)}
