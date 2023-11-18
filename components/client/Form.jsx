@@ -174,12 +174,8 @@ const Form = ({ publicKey, refresh }) => {
 								variant="filled"
 								type="text"
 								{...register('discordId', {
-									required: 'This is required',
-									pattern: {
-										value: /^.{3,32}#[0-9]{4}$/,
-										message:
-											'Your Discord ID should look like Username#1234. You will be contacted through this account to be verified.'
-									}
+									required:
+										'This is required. You will be contacted through this account to be verified.'
 								})}
 							/>
 							<FormErrorMessage>
