@@ -8,7 +8,6 @@ export const whitepaperLink =
 
 export const links = [
 	{ text: "Client", href: `https://client.${base}/` },
-	{ text: "Holders", href: `https://holders.${base}/` },
 	{ text: "Raid", href: discordLink },
 	{ text: "Client Dashboard", href: `https://dashboard.${base}/` },
 	{
